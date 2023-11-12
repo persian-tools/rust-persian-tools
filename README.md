@@ -25,7 +25,7 @@ Rust version of Persian Tools
 - [ ] numberplate
 - [ ] phoneNumber
 - [ ] remainingTime
-- [ ] removeOrdinalSuffix
+- [x] removeOrdinalSuffix
 - [ ] sheba
 - [ ] sortText
 - [ ] timeAgo
