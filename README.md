@@ -1,5 +1,7 @@
 # rust-persian-tools
 
+[![Rust](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml/badge.svg?branch=master)](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml)
+
 Rust version of Persian Tools
 
 > [!WARNING]  
