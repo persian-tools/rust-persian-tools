@@ -20,7 +20,7 @@ Rust version of Persian Tools
 - [ ] isArabic
 - [ ] isPersian
 - [ ] legalId
-- [ ] nationalId
+- [x] nationalId
 - [ ] numberToWords
 - [ ] numberplate
 - [ ] phoneNumber
