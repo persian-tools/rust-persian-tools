@@ -18,9 +18,9 @@ pub fn remove_ordinal_suffix<S>(word: S) -> String where S: Into<String> {
 
     if word.ends_with("سوم"){
         word = word[0..word.len()-("سوم".len())].to_string();
-        word = word + "سه";
+        word += "سه";
     }
-    if word.ends_with("م"){
+    if word.ends_with('م'){
         word = word[0..word.len()-("م".len())].to_string()
     }
     word

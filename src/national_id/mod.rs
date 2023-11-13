@@ -5,9 +5,9 @@ pub fn verify_iranian_national_id<S>(code: S) -> bool where S: Into<String> {
     let code: String = code.into();
 
     let code_length = code.len();
-	if code_length < 8 || code_length > 10{ return false; }
+	if !(8..=10).contains(&code_length){ return false; }
 
-    if let Err(_)= code.parse::<u64>(){
+    if code.parse::<u64>().is_err(){
         return false;
     }
 
@@ -32,7 +32,7 @@ pub fn verify_iranian_national_id<S>(code: S) -> bool where S: Into<String> {
 		sum += str::parse::<usize>(&code[i..i+1]).unwrap() * (10 - i);
     }
 
-	sum = sum % 11;
+	sum %= 11;
 
 	(sum < 2 && last_number == sum) || (sum >= 2 && last_number == 11 - sum)
 
