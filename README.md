@@ -1,5 +1,9 @@
 # rust-persian-tools
 
+<center>
+<img src="./logo.png" width="200">
+</center>
+
 [![Rust](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml/badge.svg?branch=master)](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml)
 
 [![GitHub license](https://badgen.net/github/license/persian-tools/rust-persian-tools)](https://github.com/persian-tools/rust-persian-tools/blob/master/LICENSE)
