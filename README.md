@@ -2,6 +2,8 @@
 
 [![Rust](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml/badge.svg?branch=master)](https://github.com/persian-tools/rust-persian-tools/actions/workflows/rust.yml)
 
+[![GitHub license](https://badgen.net/github/license/persian-tools/rust-persian-tools)](https://github.com/persian-tools/rust-persian-tools/blob/master/LICENSE)
+
 Rust version of Persian Tools
 
 > [!WARNING]  
