@@ -38,7 +38,7 @@ Rust version of Persian Tools
 - [ ] sortText
 - [ ] timeAgo
 - [ ] toPersianChars
-- [ ] verifyCardNumber
+- [x] verifyCardNumber
 - [ ] wordsToNumber
 
 ## Other TODOs
