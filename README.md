@@ -15,7 +15,7 @@ Rust version of Persian Tools
 
 ## Modules
 
-- [ ] URLfix
+- [x] URLfix
 - [x] addOrdinalSuffix
 - [ ] bill
 - [ ] commas
