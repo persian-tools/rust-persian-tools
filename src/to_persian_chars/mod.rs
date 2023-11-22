@@ -1,7 +1,7 @@
 /// Description: Replaces all instances of ي and ك withی and ک,
 /// respectively. It should not make any ch anges to Arabic text
 /// surrounded by appropriate templates.
-fn to_persian_chars<S>(inp: S) -> String where S : Into<String>{
+pub fn to_persian_chars<S>(inp: S) -> String where S : Into<String>{
     let inp: String = inp.into();
 
 	inp

@@ -21,7 +21,7 @@ Rust version of Persian Tools
 - [ ] commas
 - [ ] digits
 - [ ] extractCardNumbers
-- [ ] findCapitalByProvince
+- [x] findCapitalByProvince
 - [ ] getBankNameFromCardNumber
 - [ ] getPlaceByIranNationalId
 - [ ] halfSpace
@@ -37,7 +37,7 @@ Rust version of Persian Tools
 - [ ] sheba
 - [ ] sortText
 - [ ] timeAgo
-- [ ] toPersianChars
+- [x] toPersianChars
 - [x] verifyCardNumber
 - [ ] wordsToNumber
 
