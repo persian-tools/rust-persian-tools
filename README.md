@@ -26,7 +26,7 @@ Rust version of Persian Tools
 - [ ] getPlaceByIranNationalId
 - [ ] halfSpace
 - [ ] isArabic
-- [ ] isPersian
+- [x] isPersian
 - [ ] legalId
 - [x] nationalId
 - [ ] numberToWords
@@ -46,4 +46,4 @@ Rust version of Persian Tools
 - [ ] Generate rust standard docs in ./doc and enable github pages for it
 - [ ] Publish library on crates.io
 - [ ] Auto Changelog generator
-- [ ] Github actions and automatic tests
+- [x] Github actions and automatic tests
