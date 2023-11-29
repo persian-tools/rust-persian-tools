@@ -7,3 +7,4 @@ pub mod to_persian_chars;
 pub mod find_capital_by_province;
 pub mod is_persian;
 pub mod commas;
+pub mod digits;

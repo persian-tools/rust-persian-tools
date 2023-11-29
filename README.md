@@ -18,8 +18,8 @@ Rust version of Persian Tools
 - [x] URLfix
 - [x] addOrdinalSuffix
 - [ ] bill
-- [ ] commas
-- [ ] digits
+- [x] commas
+- [x] digits
 - [ ] extractCardNumbers
 - [x] findCapitalByProvince
 - [ ] getBankNameFromCardNumber
