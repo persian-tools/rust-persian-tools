@@ -20,17 +20,18 @@ jobs:
       - name: Build
         run: cargo build --verbose --all-features && ls -sh target/debug/*.rlib
       - name: Build single feature
-        run:
-          - cargo build --verbose --features=add-ordinal-suffix       && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=commas                   && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=digits                   && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=find-capital-by-province && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=is-persian               && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=national-id              && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=remove-ordinal-suffix    && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=to-persian-chars         && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=url-fix                  && ls -sh target/debug/*.rlib
-          - cargo build --verbose --features=verity-card-number       && ls -sh target/debug/*.rlib
+        run: |
+          set -xe
+          cargo build --verbose --features=add-ordinal-suffix       && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=commas                   && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=digits                   && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=find-capital-by-province && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=is-persian               && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=national-id              && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=remove-ordinal-suffix    && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=to-persian-chars         && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=url-fix                  && ls -sh target/debug/*.rlib
+          cargo build --verbose --features=verity-card-number       && ls -sh target/debug/*.rlib
 
   lint:
     runs-on: ubuntu-latest
