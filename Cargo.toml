@@ -2,6 +2,17 @@
 name = "rust-persian-tools"
 version = "0.1.0"
 edition = "2021"
+description = "Rust version of Persian Tools"
+license = "MIT"
+readme = "README.md"
+# TODO: Replace crate name in below after publishing on crates.io:
+# homepage = "https://crates.io/crates/<NAME>"
+# documentation = "https://docs.rs/<NAME>"
+repository = "https://github.com/persian-tools/rust-persian-tools"
+categories = ["localization", "languages", "internationalization"]
+keywords = ["iran", "persian", "farsi"]
+# TODO: Add `CONTRIBUTING.md` file and append it to the below list:
+include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md"]
 
 
 [dependencies]
@@ -21,3 +32,6 @@ remove-ordinal-suffix = []
 to-persian-chars = []
 url-fix = ["dep:urlencoding"]
 verity-card-number = []
+
+[package.metadata.docs.rs]
+all-features = true
