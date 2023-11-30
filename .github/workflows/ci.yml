@@ -1,0 +1,43 @@
+name: Rust
+
+on:
+  push:
+    branches:
+     - "master"
+  pull_request:
+    branches:
+      - "master"
+      - "dev"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: cargo build --verbose --all-features
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: cargo fmt --check --verbose
+      - name: Clippy
+        run: cargo clippy --no-deps --verbose --all-features
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: cargo doc --all-features --verbose
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: cargo test --verbose --all-features -- --nocapture
