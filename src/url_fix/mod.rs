@@ -16,7 +16,7 @@ where
 
     if let Some(separator) = separator {
         let separator: String = separator.into();
-        return url.replace(" ", &separator);
+        return url.replace(' ', &separator);
     }
 
     url.to_string()

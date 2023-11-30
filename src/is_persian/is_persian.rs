@@ -17,7 +17,7 @@ where
             return false;
         }
     }
-    return true;
+    true
 }
 
 #[cfg(test)]

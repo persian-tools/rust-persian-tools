@@ -11,16 +11,14 @@ where
     let s = str.clone();
     if str.contains('.') {
         let sp: Vec<&str> = s.split('.').collect();
-        str = sp.get(0).unwrap().to_string();
+        str = sp.first().unwrap().to_string();
         end = Some(sp.get(1).unwrap());
     }
 
     let mut result = String::new();
     for (i, ch) in str.chars().rev().enumerate() {
-        if i % 3 == 0 {
-            if i != 0 {
-                result.push(',')
-            }
+        if i % 3 == 0 && i != 0 {
+            result.push(',')
         }
         result.push(ch);
     }

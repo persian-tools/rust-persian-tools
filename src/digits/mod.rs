@@ -10,7 +10,7 @@ pub fn digits_fa_to_en<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, FA_DIGITS, EN_DIGITS);
+    digit_converter(inp, FA_DIGITS, EN_DIGITS)
 }
 
 /// convert english digits to persian digits
@@ -19,7 +19,7 @@ pub fn digits_en_to_fa<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, EN_DIGITS, FA_DIGITS);
+    digit_converter(inp, EN_DIGITS, FA_DIGITS)
 }
 
 /// convert english digits to arabic digits
@@ -28,7 +28,7 @@ pub fn digits_en_to_ar<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, EN_DIGITS, AR_DIGITS);
+    digit_converter(inp, EN_DIGITS, AR_DIGITS)
 }
 
 /// convert arabic digits to english digits
@@ -37,7 +37,7 @@ pub fn digits_ar_to_en<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, AR_DIGITS, EN_DIGITS);
+    digit_converter(inp, AR_DIGITS, EN_DIGITS)
 }
 
 /// convert persian digits to arabic digits
@@ -46,7 +46,7 @@ pub fn digits_fa_to_ar<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, FA_DIGITS, AR_DIGITS);
+    digit_converter(inp, FA_DIGITS, AR_DIGITS)
 }
 
 /// convert arabic digits to persian digits
@@ -55,7 +55,7 @@ pub fn digits_ar_to_fa<S>(inp: S) -> String
 where
     S: ToString,
 {
-    return digit_converter(inp, AR_DIGITS, FA_DIGITS);
+    digit_converter(inp, AR_DIGITS, FA_DIGITS)
 }
 
 #[cfg(test)]

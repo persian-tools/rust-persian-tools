@@ -5,7 +5,7 @@ where
     S: Into<String>,
 {
     let str: String = str.into();
-    str.replace(",", "")
+    str.replace(',', "")
 }
 
 #[cfg(test)]
