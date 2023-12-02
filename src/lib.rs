@@ -1,7 +1,7 @@
 #[cfg(feature = "add-ordinal-suffix")]
 pub mod add_ordinal_suffix;
 
-// #[cfg(feature = "commas")]
+#[cfg(feature = "commas")]
 pub mod commas;
 
 #[cfg(feature = "digits")]
