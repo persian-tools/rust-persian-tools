@@ -5,11 +5,12 @@
 /// // function:
 /// use rust_persian_tools::commas::add_commas::add_commas;
 /// assert_eq!(add_commas("30000000"), "30,000,000");
+/// assert_eq!(add_commas(30000000), "30,000,000");
 ///
 /// // method:
 /// use crate::rust_persian_tools::commas::add_commas::AddCommas;
-/// let o = "30000000".add_commas();
-/// assert_eq!(o, "30,000,000");
+/// assert_eq!("30000000".add_commas(), "30,000,000");
+/// assert_eq!(30000000.add_commas(), "30,000,000");
 ///
 /// // method on your custom type:
 /// struct YourCustomType;
@@ -19,8 +20,8 @@
 ///     }
 /// }
 /// ```
-pub fn add_commas(str: impl Into<String>) -> String {
-    let mut str: String = str.into();
+pub fn add_commas(str: impl ToString) -> String {
+    let mut str: String = str.to_string();
 
     str = str.replace(',', "");
     let mut result = String::new();
@@ -48,13 +49,7 @@ pub trait AddCommas {
     fn add_commas(&self) -> String;
 }
 
-impl AddCommas for String {
-    fn add_commas(&self) -> String {
-        add_commas(self)
-    }
-}
-
-impl AddCommas for str {
+impl<T: ToString + std::fmt::Display> AddCommas for T {
     fn add_commas(&self) -> String {
         add_commas(self)
     }
