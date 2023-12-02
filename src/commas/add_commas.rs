@@ -1,32 +1,33 @@
 /// Add Commas to numbers
 /// 3000000 -> 3,000,000
-pub fn add_commas<S>(str: S) -> String
-where
-    S: Into<String>,
-{
+/// Example:
+/// ```rust
+/// use rust_persian_tools::commas::add_commas::add_commas;
+/// assert_eq!(add_commas("30000000"), "30,000,000");
+/// ```
+pub fn add_commas(str: impl Into<String>) -> String {
     let mut str: String = str.into();
+
     str = str.replace(',', "");
-
-    let mut end: Option<&str> = None;
-    let s = str.clone();
-    if str.contains('.') {
-        let sp: Vec<&str> = s.split('.').collect();
-        str = sp.first().unwrap().to_string();
-        end = Some(sp.get(1).unwrap());
-    }
-
     let mut result = String::new();
-    for (i, ch) in str.chars().rev().enumerate() {
-        if i % 3 == 0 && i != 0 {
+
+    let end = str
+        .chars()
+        .position(|c| c == '.')
+        .unwrap_or_else(|| str.chars().count());
+
+    for (i, ch) in str.chars().enumerate() {
+        if end == i {
+            result.push_str(&str[end..str.chars().count()]);
+            break;
+        }
+        if (end - i) % 3 == 0 && i != 0 {
             result.push(',')
         }
         result.push(ch);
     }
-    let result = result.chars().rev().collect::<String>();
-    match end {
-        None => result,
-        Some(x) => format!("{}.{}", result, x),
-    }
+
+    result
 }
 
 #[cfg(test)]
