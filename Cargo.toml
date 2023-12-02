@@ -16,12 +16,14 @@ include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md"]
 
 
 [dependencies]
-urlencoding = {version = "2.1.3", optional = true}
-
+urlencoding = { version = "2.1.3", optional = true }
+regex = "1.10.2"
+serde = { version = "1.0.193", features = ["derive"], optional = true }
 
 [features]
 default = []
 
+serialize = ["dep:serde"]
 add-ordinal-suffix = []
 commas = []
 digits = []
@@ -32,6 +34,7 @@ remove-ordinal-suffix = []
 to-persian-chars = []
 url-fix = ["dep:urlencoding"]
 verity-card-number = []
+phone-number = []
 
 [package.metadata.docs.rs]
 all-features = true
