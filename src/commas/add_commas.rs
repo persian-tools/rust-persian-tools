@@ -61,8 +61,6 @@ impl AddCommas for String {
 
 #[cfg(test)]
 mod tests {
-    use std::time::Instant;
-
     use super::*;
 
     #[test]
