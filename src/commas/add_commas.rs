@@ -18,7 +18,8 @@
 ///     }
 /// }
 /// ```
-pub fn add_commas(inp: &str) -> String {
+pub fn add_commas(inp: impl AsRef<str>) -> String {
+    let inp = inp.as_ref();
     let comma_less = |c: &char| c != &',';
 
     let mut end = inp
