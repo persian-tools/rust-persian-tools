@@ -10,9 +10,23 @@
 /// use crate::rust_persian_tools::commas::remove_commas::RemoveCommas;
 /// assert_eq!("30,000,000".remove_commas(), "30000000".to_string());
 /// ```
-pub fn remove_commas(str: impl Into<String>) -> String {
-    let str: String = str.into();
-    str.replace(',', "")
+pub fn remove_commas(str: impl AsRef<str>) -> String {
+    str.as_ref().replace(',', "")
+}
+
+/// Remove all commas in string\
+/// 3,000,000 -> 3000000\
+/// Example:
+/// ```rust
+/// // function:
+/// use rust_persian_tools::commas::remove_commas::remove_commas_mut;
+/// let mut input = String::from("30,000,000");
+/// remove_commas_mut(&mut input);
+/// assert_eq!(input, "30000000".to_string());
+///
+/// ```
+pub fn remove_commas_mut(str: &mut String) {
+    str.retain(|c| c != ',')
 }
 
 pub trait RemoveCommas {
@@ -33,10 +47,19 @@ impl RemoveCommas for str {
 
 #[cfg(test)]
 mod tests {
+    use std::time::Instant;
+
     use super::*;
 
     #[test]
     fn remove_commas_test() {
         assert_eq!(remove_commas("30,000,000"), "30000000".to_string());
+    }
+
+    #[test]
+    fn remove_commas_mut_test() {
+        let mut input = String::from("30,000,000");
+        remove_commas_mut(&mut input);
+        assert_eq!(input, "30000000".to_string());
     }
 }
