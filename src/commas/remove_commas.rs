@@ -10,8 +10,7 @@
 /// use crate::rust_persian_tools::commas::remove_commas::RemoveCommas;
 /// assert_eq!("30,000,000".remove_commas(), "30000000".to_string());
 /// ```
-pub fn remove_commas(str: impl Into<String>) -> String {
-    let str: String = str.into();
+pub fn remove_commas(str: &str) -> String {
     str.replace(',', "")
 }
 

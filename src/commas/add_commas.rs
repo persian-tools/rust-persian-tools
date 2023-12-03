@@ -5,12 +5,10 @@
 /// // function:
 /// use rust_persian_tools::commas::add_commas::add_commas;
 /// assert_eq!(add_commas("30000000"), "30,000,000");
-/// assert_eq!(add_commas(30000000), "30,000,000");
 ///
 /// // method:
 /// use crate::rust_persian_tools::commas::add_commas::AddCommas;
 /// assert_eq!("30000000".add_commas(), "30,000,000");
-/// assert_eq!(30000000.add_commas(), "30,000,000");
 ///
 /// // method on your custom type:
 /// struct YourCustomType;
@@ -20,20 +18,20 @@
 ///     }
 /// }
 /// ```
-pub fn add_commas(str: impl ToString) -> String {
-    let mut str: String = str.to_string();
+pub fn add_commas(inp: &str) -> String {
+    let comma_less = |c: &char| c != &',';
 
-    str = str.replace(',', "");
-    let mut result = String::new();
-
-    let end = str
+    let mut end = inp
         .chars()
+        .filter(comma_less)
         .position(|c| c == '.')
-        .unwrap_or_else(|| str.chars().count());
+        .unwrap_or_else(|| inp.chars().filter(comma_less).count());
 
-    for (i, ch) in str.chars().enumerate() {
+    let mut result = String::new();
+    for (i, ch) in inp.chars().filter(comma_less).enumerate() {
         if end == i {
-            result.push_str(&str[end..str.chars().count()]);
+            end += inp.chars().filter(|c| c == &',').count();
+            result.push_str(&inp[end..inp.chars().count()]);
             break;
         }
         if (end - i) % 3 == 0 && i != 0 {
@@ -49,7 +47,13 @@ pub trait AddCommas {
     fn add_commas(&self) -> String;
 }
 
-impl<T: ToString + std::fmt::Display> AddCommas for T {
+impl AddCommas for str {
+    fn add_commas(&self) -> String {
+        add_commas(self)
+    }
+}
+
+impl AddCommas for String {
     fn add_commas(&self) -> String {
         add_commas(self)
     }
@@ -57,6 +61,8 @@ impl<T: ToString + std::fmt::Display> AddCommas for T {
 
 #[cfg(test)]
 mod tests {
+    use std::time::Instant;
+
     use super::*;
 
     #[test]
