@@ -13,41 +13,26 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: make lint
+
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clippy
+        run: make clippy
+
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build
-        run: cargo build --verbose --all-features && ls -sh target/debug/*.rlib
-      - name: Build single feature
-        run: |
-          set -xe
-          cargo build --verbose --features=add-ordinal-suffix       && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=commas                   && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=digits                   && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=find-capital-by-province && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=is-persian               && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=national-id              && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=remove-ordinal-suffix    && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=to-persian-chars         && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=url-fix                  && ls -sh target/debug/*.rlib
-          cargo build --verbose --features=verity-card-number       && ls -sh target/debug/*.rlib
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check style
-        run: cargo fmt --check --verbose
-      - name: Clippy
-        run: cargo clippy --no-deps --verbose --all-features
-
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check style
-        run: cargo doc --all-features --verbose
+        run: make build
 
   test:
     runs-on: ubuntu-latest
@@ -56,4 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test
-        run: cargo test --verbose --all-features -- --nocapture
+        run: make test
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: make docs

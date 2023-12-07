@@ -1,10 +1,7 @@
 use std::collections::HashMap;
 
-#[cfg(feature = "serialize")]
-use serde::{Deserialize, Serialize};
-
-#[cfg_attr(feature = "serialize", derive(Serialize, Deserialize))]
 #[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Operators {
     ShatelMobile,
     MCI,
@@ -13,15 +10,15 @@ pub enum Operators {
     RightTel,
 }
 
-#[cfg_attr(feature = "serialize", derive(Serialize, Deserialize))]
 #[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SimType {
     Permanent,
     Credit,
 }
 
-#[cfg_attr(feature = "serialize", derive(Serialize, Deserialize))]
 #[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct OperatorDetails<'a> {
     pub province: Vec<&'a str>,
     pub base: &'a str,

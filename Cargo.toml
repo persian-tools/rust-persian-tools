@@ -20,10 +20,23 @@ urlencoding = { version = "2.1.3", optional = true }
 regex = "1.10.2"
 serde = { version = "1.0.193", features = ["derive"], optional = true }
 
+
+# Edit `Makefile` after making changes in this section:
 [features]
 default = []
-
-serialize = ["dep:serde"]
+full = [
+    "add-ordinal-suffix",
+    "commas",
+    "digits",
+    "find-capital-by-province",
+    "is-persian",
+    "national-id",
+    "remove-ordinal-suffix",
+    "to-persian-chars",
+    "url-fix",
+    "verity-card-number",
+    "phone-number",
+]
 add-ordinal-suffix = []
 commas = []
 digits = []
@@ -35,6 +48,7 @@ to-persian-chars = []
 url-fix = ["dep:urlencoding"]
 verity-card-number = []
 phone-number = []
+serde = ["dep:serde"]
 
 [package.metadata.docs.rs]
 all-features = true
