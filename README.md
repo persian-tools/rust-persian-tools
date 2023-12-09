@@ -31,7 +31,7 @@ Rust version of Persian Tools
 - [x] nationalId
 - [ ] numberToWords
 - [ ] numberplate
-- [ ] phoneNumber
+- [x] phoneNumber
 - [ ] remainingTime
 - [x] removeOrdinalSuffix
 - [ ] sheba
