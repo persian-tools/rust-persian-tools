@@ -1,3 +1,18 @@
+#[cfg(not(any(
+    feature = "add-ordinal-suffix",
+    feature = "commas",
+    feature = "digits",
+    feature = "find-capital-by-province",
+    feature = "is-persian",
+    feature = "national-id",
+    feature = "remove-ordinal-suffix",
+    feature = "to-persian-chars",
+    feature = "url-fix",
+    feature = "verity-card-number",
+    feature = "phone-number",
+)))]
+compile_error!("No available Cargo feature is included");
+
 #[cfg(feature = "add-ordinal-suffix")]
 pub mod add_ordinal_suffix;
 

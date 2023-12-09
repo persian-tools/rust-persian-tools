@@ -21,9 +21,10 @@ regex = "1.10.2"
 serde = { version = "1.0.193", features = ["derive"], optional = true }
 
 
-# Edit `Makefile` after making changes in this section:
+# Edit `Makefile` and `src/lib.src` after making changes in this section:
 [features]
-default = []
+# For now, by default we enable all features:
+default = ["full"]
 full = [
     "add-ordinal-suffix",
     "commas",
