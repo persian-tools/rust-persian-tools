@@ -1,8 +1,401 @@
-use std::collections::HashMap;
+use crate::phone_number::{get_operator_prefix, is_phone_valid};
+use std::borrow::Cow;
 
-#[derive(Debug, Clone, PartialEq)]
+pub mod constants {
+    use super::*;
+
+    pub static MCI: &[(&str, OperatorDetails)] = &[
+        (
+            "910",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "914",
+            OperatorDetails {
+                base: "آذربایجان غربی",
+                province: Cow::Borrowed(&["آذربایجان شرقی", "اردبیل", "اصفهان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "911",
+            OperatorDetails {
+                base: "مازندران",
+                province: Cow::Borrowed(&["گلستان", "گیلان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "912",
+            OperatorDetails {
+                base: "تهران",
+                province: Cow::Borrowed(&[
+                    "البرز",
+                    "زنجان",
+                    "سمنان",
+                    "قزوین",
+                    "قم",
+                    "برخی از شهرستان های استان مرکزی",
+                ]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "913",
+            OperatorDetails {
+                base: "اصفهان",
+                province: Cow::Borrowed(&["یزد", "چهارمحال و بختیاری", "کرمان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "915",
+            OperatorDetails {
+                base: "خراسان رضوی",
+                province: Cow::Borrowed(&["خراسان شمالی", "خراسان جنوبی", "سیستان و بلوچستان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "916",
+            OperatorDetails {
+                base: "خوزستان",
+                province: Cow::Borrowed(&["لرستان", "فارس", "اصفهان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "917",
+            OperatorDetails {
+                base: "فارس",
+                province: Cow::Borrowed(&["بوشهر", "کهگیلویه و بویر احمد", "هرمزگان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "918",
+            OperatorDetails {
+                base: "کرمانشاه",
+                province: Cow::Borrowed(&["کردستان", "ایلام", "همدان"]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "919",
+            OperatorDetails {
+                base: "تهران",
+                province: Cow::Borrowed(&["البرز", "سمنان", "قم", "قزوین", "زنجان"]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "990",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "991",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "992",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "993",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "994",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "995",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+        (
+            "996",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
+                model: None,
+            },
+        ),
+    ];
+
+    pub static TALIYA: &[(&str, OperatorDetails)] = &[(
+        "932",
+        OperatorDetails {
+            base: "کشوری",
+            province: Cow::Borrowed(&[]),
+            sim_types: Cow::Borrowed(&[SimType::Credit]),
+            operator: Operator::Taliya,
+            model: None,
+        },
+    )];
+
+    pub static RIGHTTEL: &[(&str, OperatorDetails)] = &[
+        (
+            "920",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent]),
+                operator: Operator::RightTel,
+                model: None,
+            },
+        ),
+        (
+            "921",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::RightTel,
+                model: None,
+            },
+        ),
+        (
+            "922",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::RightTel,
+                model: None,
+            },
+        ),
+        (
+            "923",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::RightTel,
+                model: None,
+            },
+        ),
+    ];
+
+    pub static IRANCELL: &[(&str, OperatorDetails)] = &[
+        (
+            "930",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "933",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "935",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "936",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "937",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "938",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "939",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "901",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "902",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "903",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "905",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "900",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit, SimType::Permanent]),
+                operator: Operator::Irancell,
+                model: None,
+            },
+        ),
+        (
+            "904",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::Irancell,
+                model: Some("سیم‌کارت کودک"),
+            },
+        ),
+        (
+            "941",
+            OperatorDetails {
+                base: "کشوری",
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::Irancell,
+                model: Some("TD-LTE"),
+            },
+        ),
+    ];
+
+    pub static SHATELMOBILE: &[(&str, OperatorDetails)] = &[(
+        "998",
+        OperatorDetails {
+            base: "کشوری",
+            province: Cow::Borrowed(&[]),
+            sim_types: Cow::Borrowed(&[SimType::Credit]),
+            operator: Operator::ShatelMobile,
+            model: None,
+        },
+    )];
+}
+
+#[derive(Debug, Copy, Clone, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
-pub enum Operators {
+pub enum Operator {
     ShatelMobile,
     MCI,
     Irancell,
@@ -10,7 +403,7 @@ pub enum Operators {
     RightTel,
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum SimType {
     Permanent,
@@ -19,333 +412,93 @@ pub enum SimType {
 
 #[derive(Debug, Clone, PartialEq)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", serde(bound(deserialize = "'de: 'a")))]
 pub struct OperatorDetails<'a> {
-    pub province: Vec<&'a str>,
-    pub base: &'a str,
-    pub model: Option<&'a str>,
-    pub operator: Operators,
-    pub sim_types: Vec<SimType>,
+    province: Cow<'a, [&'a str]>,
+    base: &'a str,
+    model: Option<&'a str>,
+    operator: Operator,
+    sim_types: Cow<'a, [SimType]>,
+}
+
+impl Operator {
+    pub fn details(&self) -> &'static [(&'static str, OperatorDetails<'static>)] {
+        match self {
+            Self::MCI => mci(),
+            Self::Taliya => talia(),
+            Self::RightTel => talia(),
+            Self::Irancell => irancell(),
+            Self::ShatelMobile => shatel_mobile(),
+        }
+    }
+}
+
+impl<'a> OperatorDetails<'a> {
+    pub fn province_list(&'a self) -> &'a [&'a str] {
+        &self.province
+    }
+
+    pub fn base(&self) -> &'a str {
+        &self.base
+    }
+
+    pub fn model(&self) -> Option<&'a str> {
+        self.model
+    }
+
+    pub fn operator(&self) -> Operator {
+        self.operator
+    }
+
+    pub fn sim_type_list(&'a self) -> &'a [SimType] {
+        &self.sim_types
+    }
 }
 
 /// returns operator details for mci
-pub fn mci<'a>() -> HashMap<&'a str, OperatorDetails<'a>> {
-    HashMap::from([
-        (
-            "910",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "914",
-            OperatorDetails {
-                base: "آذربایجان غربی",
-                province: vec!["آذربایجان شرقی", "اردبیل", "اصفهان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "911",
-            OperatorDetails {
-                base: "مازندران",
-                province: vec!["گلستان", "گیلان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "912",
-            OperatorDetails {
-                base: "تهران",
-                province: vec![
-                    "البرز",
-                    "زنجان",
-                    "سمنان",
-                    "قزوین",
-                    "قم",
-                    "برخی از شهرستان های استان مرکزی",
-                ],
-                sim_types: vec![SimType::Permanent],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "913",
-            OperatorDetails {
-                base: "اصفهان",
-                province: vec!["یزد", "چهارمحال و بختیاری", "کرمان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "915",
-            OperatorDetails {
-                base: "خراسان رضوی",
-                province: vec!["خراسان شمالی", "خراسان جنوبی", "سیستان و بلوچستان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "916",
-            OperatorDetails {
-                base: "خوزستان",
-                province: vec!["لرستان", "فارس", "اصفهان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "917",
-            OperatorDetails {
-                base: "فارس",
-                province: vec!["بوشهر", "کهگیلویه و بویر احمد", "هرمزگان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "918",
-            OperatorDetails {
-                base: "کرمانشاه",
-                province: vec!["کردستان", "ایلام", "همدان"],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "919",
-            OperatorDetails {
-                base: "تهران",
-                province: vec!["البرز", "سمنان", "قم", "قزوین", "زنجان"],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "990",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "991",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "992",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "993",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "994",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "995",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-        (
-            "996",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
-                model: None,
-            },
-        ),
-    ])
+#[inline(always)]
+pub fn mci() -> &'static [(&'static str, OperatorDetails<'static>)] {
+    constants::MCI
 }
 
 /// returns operator details for talia
-pub fn talia() -> HashMap<&'static str, OperatorDetails<'static>> {
-    HashMap::from([(
-        "932",
-        OperatorDetails {
-            base: "کشوری",
-            province: vec![],
-            sim_types: vec![SimType::Credit],
-            operator: Operators::Taliya,
-            model: None,
-        },
-    )])
+#[inline(always)]
+pub fn talia() -> &'static [(&'static str, OperatorDetails<'static>)] {
+    constants::TALIYA
 }
 
 /// returns operator details for RightTel
-pub fn right_tel() -> HashMap<&'static str, OperatorDetails<'static>> {
-    HashMap::from([
-        (
-            "920",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent],
-                operator: Operators::RightTel,
-                model: None,
-            },
-        ),
-        (
-            "921",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::RightTel,
-                model: None,
-            },
-        ),
-        (
-            "922",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::RightTel,
-                model: None,
-            },
-        ),
-        (
-            "923",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::RightTel,
-                model: None,
-            },
-        ),
-    ])
+#[inline(always)]
+pub fn right_tel() -> &'static [(&'static str, OperatorDetails<'static>)] {
+    constants::RIGHTTEL
 }
 
 /// returns operator details for irancell
-pub fn irancell() -> HashMap<&'static str, OperatorDetails<'static>> {
-    let basic_model = OperatorDetails {
-        base: "کشوری",
-        province: vec![],
-        sim_types: vec![SimType::Credit, SimType::Permanent],
-        operator: Operators::Irancell,
-        model: None,
-    };
-
-    HashMap::from([
-        ("930", basic_model.clone()),
-        ("933", basic_model.clone()),
-        ("935", basic_model.clone()),
-        ("936", basic_model.clone()),
-        ("937", basic_model.clone()),
-        ("938", basic_model.clone()),
-        ("939", basic_model.clone()),
-        ("901", basic_model.clone()),
-        ("902", basic_model.clone()),
-        ("903", basic_model.clone()),
-        ("905", basic_model.clone()),
-        ("900", basic_model.clone()),
-        (
-            "904",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::Irancell,
-                model: Some("سیم‌کارت کودک"),
-            },
-        ),
-        (
-            "941",
-            OperatorDetails {
-                base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::Irancell,
-                model: Some("TD-LTE"),
-            },
-        ),
-    ])
+#[inline(always)]
+pub fn irancell() -> &'static [(&'static str, OperatorDetails<'static>)] {
+    constants::IRANCELL
 }
 
 /// returns operator details for Shatel Mobile
-pub fn shatel_mobile() -> HashMap<&'static str, OperatorDetails<'static>> {
-    HashMap::from([(
-        "998",
-        OperatorDetails {
-            base: "کشوری",
-            province: vec![],
-            sim_types: vec![SimType::Credit],
-            operator: Operators::ShatelMobile,
-            model: None,
-        },
-    )])
+#[inline(always)]
+pub fn shatel_mobile() -> &'static [(&'static str, OperatorDetails<'static>)] {
+    constants::SHATELMOBILE
 }
 
 /// returns all operators details
-pub fn all_operators() -> HashMap<&'static str, OperatorDetails<'static>> {
-    let mut all_operators = HashMap::new();
-
-    all_operators.extend(mci());
-    all_operators.extend(talia());
-    all_operators.extend(right_tel());
-    all_operators.extend(irancell());
-    all_operators.extend(shatel_mobile());
-
-    all_operators
+#[inline(always)]
+pub fn all_operators() -> impl Iterator<Item = &'static (&'static str, OperatorDetails<'static>)> {
+    mci()
+        .iter()
+        .chain(talia().iter())
+        .chain(right_tel().iter())
+        .chain(irancell().iter())
+        .chain(shatel_mobile().iter())
 }
 
 /// a list of all available Iran operators prefixes
-pub fn prefixs() -> Vec<&'static str> {
-    all_operators().into_keys().collect()
+pub fn prefixes() -> Vec<&'static str> {
+    all_operators().map(|(key, _)| *key).collect::<Vec<&str>>()
 }
 
 /// returns operator details of givin prefix for example (912, 919, 913)
@@ -353,24 +506,20 @@ pub fn prefixs() -> Vec<&'static str> {
 /// # Examples
 ///
 /// ```
-/// use rust_persian_tools::phone_number::operators::{*};
+/// use rust_persian_tools::phone_number::operators::{get_prefix_details, SimType, Operator};
 ///
-/// assert_eq!(
-///     get_prefix_details("910"),
-///     Some(OperatorDetails {
-///         base: "کشوری",
-///         province: vec![],
-///         sim_types: vec![SimType::Permanent, SimType::Credit],
-///         operator: Operators::MCI,
-///         model: None,
-///     },)
-/// );
+/// let details = get_prefix_details("910").expect("910 has details");
+/// assert_eq!(details.base(), "کشوری");
+/// // assert_eq!(details.province_list(), &[]);
+/// assert_eq!(details.sim_type_list(), &[SimType::Permanent, SimType::Credit]);
+/// assert_eq!(details.operator(), Operator::MCI);
+///
 /// assert_eq!(get_prefix_details("9100"), None);
 /// ```
-pub fn get_prefix_details(prefix: &str) -> Option<OperatorDetails> {
-    let mut all_prefixes = all_operators();
-
-    all_prefixes.remove(prefix)
+pub fn get_prefix_details(prefix: &str) -> Option<&OperatorDetails<'static>> {
+    all_operators()
+        .find(|(key, _)| key == &prefix)
+        .map(|(_, details)| details)
 }
 
 /// returns operator details of givin phone number
@@ -378,25 +527,22 @@ pub fn get_prefix_details(prefix: &str) -> Option<OperatorDetails> {
 /// # Examples
 ///
 /// ```
-/// use rust_persian_tools::phone_number::operators::{*};
+/// use rust_persian_tools::phone_number::operators::{get_phone_details, SimType, Operator};
 ///
-/// assert_eq!(get_phone_details("09195431812") , Some(OperatorDetails {
-///     base: "تهران",
-///     province: vec!["البرز", "سمنان", "قم", "قزوین", "زنجان"],
-///     sim_types: vec![SimType::Credit],
-///     operator: Operators::MCI,
-///     model: None,
-/// },));
+/// let details = get_phone_details("09195431812").expect("The number has details");
+/// assert_eq!(details.base(), "تهران");
+/// assert_eq!(details.province_list(), &["البرز", "سمنان", "قم", "قزوین", "زنجان"]);
+/// assert_eq!(details.sim_type_list(), &[SimType::Credit]);
+/// assert_eq!(details.operator(), Operator::MCI);
 ///
 /// assert_eq!(get_phone_details("009195431812") , None);
 /// ```
-pub fn get_phone_details(phone_number: &str) -> Option<OperatorDetails> {
-    if !super::is_phone_valid(phone_number) {
+pub fn get_phone_details(phone_number: &str) -> Option<&OperatorDetails<'static>> {
+    if !is_phone_valid(phone_number) {
         return None;
     }
 
-    let prefix = super::get_operator_prefix(phone_number).unwrap();
-    get_prefix_details(prefix)
+    get_operator_prefix(phone_number).and_then(|prefix| get_prefix_details(prefix))
 }
 
 #[cfg(test)]
@@ -407,22 +553,22 @@ mod test_mobile_operators {
     fn test_get_phone_prefix_operator() {
         assert_eq!(
             get_prefix_details("904"),
-            Some(OperatorDetails {
+            Some(&OperatorDetails {
                 base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::Irancell,
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::Irancell,
                 model: Some("سیم‌کارت کودک"),
             },)
         );
 
         assert_eq!(
             get_prefix_details("910"),
-            Some(OperatorDetails {
+            Some(&OperatorDetails {
                 base: "کشوری",
-                province: vec![],
-                sim_types: vec![SimType::Permanent, SimType::Credit],
-                operator: Operators::MCI,
+                province: Cow::Borrowed(&[]),
+                sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
+                operator: Operator::MCI,
                 model: None,
             },)
         );
@@ -434,11 +580,11 @@ mod test_mobile_operators {
     fn test_get_phone_details() {
         assert_eq!(
             get_phone_details("09195431812"),
-            Some(OperatorDetails {
+            Some(&OperatorDetails {
                 base: "تهران",
-                province: vec!["البرز", "سمنان", "قم", "قزوین", "زنجان"],
-                sim_types: vec![SimType::Credit],
-                operator: Operators::MCI,
+                province: Cow::Borrowed(&["البرز", "سمنان", "قم", "قزوین", "زنجان"]),
+                sim_types: Cow::Borrowed(&[SimType::Credit]),
+                operator: Operator::MCI,
                 model: None,
             },)
         );
