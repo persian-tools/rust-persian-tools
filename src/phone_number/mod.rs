@@ -2,8 +2,8 @@ pub mod operators;
 
 use regex::Regex;
 
-const MOBILE_REGEX: &str = r#"^(\+98|98|0098|0)?9(\d{2})\d{7}$"#;
-pub const PREFIXES: [&str; 4] = ["+98", "98", "0098", "0"];
+static MOBILE_REGEX: &str = r#"^(\+98|98|0098|0)?9(\d{2})\d{7}$"#;
+pub static PREFIXES: [&str; 4] = ["+98", "98", "0098", "0"];
 
 /// This is a simple function that checks if a phone number valid or not
 ///
