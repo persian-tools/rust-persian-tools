@@ -47,8 +47,6 @@ impl RemoveCommas for str {
 
 #[cfg(test)]
 mod tests {
-    use std::time::Instant;
-
     use super::*;
 
     #[test]

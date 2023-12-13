@@ -44,6 +44,40 @@ pub fn add_commas(inp: impl AsRef<str>) -> String {
     result
 }
 
+/// Add Commas to numbers in place\
+/// 3000000 -> 3,000,000\
+/// Example:
+/// ```rust
+/// // function:
+/// use rust_persian_tools::commas::add_commas::add_commas_mut;
+/// let mut input = "30000000".to_string();
+/// add_commas_mut(&mut input);
+/// assert_eq!(input, "30,000,000");
+/// ```
+pub fn add_commas_mut(str_mut: &mut String) {
+    let comma_less = |c: &char| c != &',';
+
+    let mut end = str_mut
+        .chars()
+        .filter(comma_less)
+        .position(|c| c == '.')
+        .unwrap_or_else(|| str_mut.chars().filter(comma_less).count());
+
+    dbg!(end);
+    let mut i = 0;
+    while i < end {
+        if (end - i) % 3 == 0 && i != 0 {
+            let c = str_mut.chars().nth(i).unwrap();
+            if c != ',' {
+                str_mut.insert(i, ',');
+            }
+            end += 1;
+            i += 1;
+        }
+        i += 1;
+    }
+}
+
 pub trait AddCommas {
     fn add_commas(&self) -> String;
 }
@@ -78,5 +112,20 @@ mod tests {
 
         assert_eq!(add_commas("300"), "300");
         assert_eq!(add_commas("0"), "0");
+    }
+
+    #[test]
+    fn add_commas_mut_test() {
+        let mut input = "30000000".to_string();
+        add_commas_mut(&mut input);
+        assert_eq!(input, "30,000,000");
+
+        let mut input = "30,000,000".to_string();
+        add_commas_mut(&mut input);
+        assert_eq!(input, "30,000,000");
+
+        let mut input = "30000000.02".to_string();
+        add_commas_mut(&mut input);
+        assert_eq!(input, "30,000,000.02");
     }
 }
