@@ -8,3 +8,4 @@ pub mod find_capital_by_province;
 pub mod is_persian;
 pub mod commas;
 pub mod digits;
+pub mod is_arabic;
