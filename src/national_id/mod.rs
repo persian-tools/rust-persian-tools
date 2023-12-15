@@ -37,7 +37,7 @@
 //! assert!(serde_json::from_str::<MyStruct>(json_str_invalid).is_err());
 //! assert_eq!(
 //!     serde_json::from_str::<MyStruct>(json_str_invalid).err().unwrap().to_string(),
-//!     "Could not convert to numeric at line 1 column 19".to_string(),
+//!     "Could not convert National Number to numeric at line 1 column 19".to_string(),
 //! );
 //! ```
 //! ##### Option\<National Number\>
@@ -67,13 +67,13 @@ pub mod serde;
 #[derive(Debug, PartialEq, thiserror::Error)]
 pub enum NationalIdError {
     /// If input length is invalid.
-    #[error("Invalid length {0}")]
+    #[error("Invalid length {0} for National Number")]
     Length(usize),
     /// If input is not a [u64] number.
-    #[error("Could not convert to numeric")]
+    #[error("Could not convert National Number to numeric")]
     NumericConvert { source: ParseIntError },
     /// Other checks.
-    #[error("National id is invalid")]
+    #[error("National Number is invalid")]
     Invalid,
 }
 
