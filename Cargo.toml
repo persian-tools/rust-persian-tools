@@ -37,6 +37,7 @@ full = [
     "url-fix",
     "verity-card-number",
     "phone-number",
+    "number-to-words",
 ]
 add-ordinal-suffix = []
 commas = []
@@ -50,6 +51,7 @@ url-fix = ["dep:urlencoding"]
 verity-card-number = []
 phone-number = []
 serde = ["dep:serde"]
+number-to-words = []
 
 [package.metadata.docs.rs]
 all-features = true

@@ -88,3 +88,8 @@ phone-number:
 	@ ls -sh target/debug/*.rlib
 	cargo build --no-default-features --features="phone-number serde"
 	@ ls -sh target/debug/*.rlib
+
+number-to-words:
+	@ echo ""
+	cargo build --no-default-features --features=number-to-words
+	@ ls -sh target/debug/*.rlib
