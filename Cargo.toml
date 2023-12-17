@@ -50,7 +50,7 @@ to-persian-chars = []
 url-fix = ["dep:urlencoding"]
 verity-card-number = []
 phone-number = []
-is-arabic = []
+is-arabic = ["dep:regex"]
 serde = ["dep:serde"]
 
 [package.metadata.docs.rs]
