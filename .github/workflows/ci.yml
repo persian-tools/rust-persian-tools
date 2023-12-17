@@ -1,0 +1,51 @@
+name: Rust
+
+on:
+  push:
+    branches:
+     - "master"
+  pull_request:
+    branches:
+      - "master"
+      - "dev"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: make lint
+
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clippy
+        run: make clippy
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make build
+
+  test:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: make test
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check style
+        run: make docs

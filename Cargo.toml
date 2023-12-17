@@ -2,9 +2,56 @@
 name = "rust-persian-tools"
 version = "0.1.0"
 edition = "2021"
+description = "Rust version of Persian Tools"
+license = "MIT"
+readme = "README.md"
+# TODO: Replace crate name in below after publishing on crates.io:
+# homepage = "https://crates.io/crates/<NAME>"
+# documentation = "https://docs.rs/<NAME>"
+repository = "https://github.com/persian-tools/rust-persian-tools"
+categories = ["localization", "languages", "internationalization"]
+keywords = ["iran", "persian", "farsi"]
+# TODO: Add `CONTRIBUTING.md` file and append it to the below list:
+include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+urlencoding = { version = "2.1.3", optional = true }
 regex = "1.10.2"
-urlencoding = "2.1.3"
+serde = { version = "1.0.193", features = ["derive"], optional = true }
+
+
+# Edit `Makefile` and `src/lib.src` after making changes in this section:
+[features]
+# For now, by default we enable all features:
+default = ["full"]
+full = [
+    "add-ordinal-suffix",
+    "commas",
+    "digits",
+    "find-capital-by-province",
+    "is-persian",
+    "national-id",
+    "remove-ordinal-suffix",
+    "to-persian-chars",
+    "url-fix",
+    "verity-card-number",
+    "phone-number",
+    "is-arabic"
+]
+add-ordinal-suffix = []
+commas = []
+digits = []
+find-capital-by-province = ["to-persian-chars"]
+is-persian = []
+national-id = []
+remove-ordinal-suffix = []
+to-persian-chars = []
+url-fix = ["dep:urlencoding"]
+verity-card-number = []
+phone-number = []
+is-arabic = []
+serde = ["dep:serde"]
+
+[package.metadata.docs.rs]
+all-features = true
