@@ -10,6 +10,7 @@
     feature = "url-fix",
     feature = "verity-card-number",
     feature = "phone-number",
+    feature = "is-arabic",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -45,3 +46,6 @@ pub mod verity_card_number;
 
 #[cfg(feature = "phone-number")]
 pub mod phone_number;
+
+#[cfg(feature = "is-arabic")]
+pub mod is_arabic;
