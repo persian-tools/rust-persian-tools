@@ -9,7 +9,7 @@ build: full default add-ordinal-suffix commas digits find-capital-by-province is
 check: clippy lint
 
 test:
-	cargo test --all-features -- --nocapture
+	RUST_BACKTRACE=1 cargo test --all-features -- --nocapture
 
 docs:
 	cargo doc --all-features
@@ -61,6 +61,9 @@ national-id:
 	@ echo ""
 	cargo build --no-default-features --features=national-id
 	@ ls -sh target/debug/*.rlib
+	cargo build --no-default-features --features="national-id serde"
+	@ ls -sh target/debug/*.rlib
+
 
 remove-ordinal-suffix:
 	@ echo ""
