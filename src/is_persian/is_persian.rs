@@ -6,7 +6,9 @@ pub fn is_persian<S>(str: S, is_complex: bool) -> bool
 where
     S: Into<String>,
 {
-    let str: String = str.into();
+    // let str = str.into();
+    let trim_pattern = regex::Regex::new(r#"[\"'\-\+\(\)\!\?\s.\\،\\؛]"#).unwrap();
+    let str: String = trim_pattern.replace_all(&str.into(), "").into_owned();
 
     if str.is_empty() {
         return false;
@@ -28,10 +30,11 @@ mod tests {
 
     #[test]
     fn is_persian_test() {
-        assert_eq!(is_persian("این یک متن فارسی است؟", false), true);
+        assert_eq!(is_persian("این، یک متن فارسی است؟", false), true);
+        assert_eq!(is_persian("این؛ یک متن فارسی است.", false), true);
         assert_eq!(
             is_persian(
-                "آیا سیستم میتواند گزینه های دیگری را به اشتباه به عنوان متن فارسی تشخیص دهد؟",
+                "!آیا سیستم میتواند گزینه های دیگری را به اشتباه به عنوان متن فارسی تشخیص دهد؟",
                 false
             ),
             true
