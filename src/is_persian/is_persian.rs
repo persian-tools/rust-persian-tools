@@ -6,7 +6,6 @@ pub fn is_persian<S>(str: S, is_complex: bool) -> bool
 where
     S: Into<String>,
 {
-    // let str = str.into();
     let trim_pattern = regex::Regex::new(r#"[\"'\-\+\(\)\!\?\s.\\،\\؛]"#).unwrap();
     let str: String = trim_pattern.replace_all(&str.into(), "").into_owned();
 
