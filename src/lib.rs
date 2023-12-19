@@ -45,3 +45,6 @@ pub mod verity_card_number;
 
 #[cfg(feature = "phone-number")]
 pub mod phone_number;
+
+#[cfg(feature = "bill")]
+pub mod bill;
