@@ -4,7 +4,7 @@ fmt:
 	cargo fmt
 
 
-build: full default add-ordinal-suffix commas digits find-capital-by-province is-persian national-id remove-ordinal-suffix to-persian-chars url-fix verity-card-number phone-number
+build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number phone-number
 
 check: clippy lint
 
@@ -52,9 +52,9 @@ find-capital-by-province:
 	cargo build --no-default-features --features=find-capital-by-province
 	@ ls -sh target/debug/*.rlib
 
-is-persian:
+persian-chars:
 	@ echo ""
-	cargo build --no-default-features --features=is-persian
+	cargo build --no-default-features --features=persian-chars
 	@ ls -sh target/debug/*.rlib
 
 national-id:
@@ -68,11 +68,6 @@ national-id:
 remove-ordinal-suffix:
 	@ echo ""
 	cargo build --no-default-features --features=remove-ordinal-suffix
-	@ ls -sh target/debug/*.rlib
-
-to-persian-chars:
-	@ echo ""
-	cargo build --no-default-features --features=to-persian-chars
 	@ ls -sh target/debug/*.rlib
 
 url-fix:

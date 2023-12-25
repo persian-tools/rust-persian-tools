@@ -31,10 +31,9 @@ full = [
     "commas",
     "digits",
     "find-capital-by-province",
-    "is-persian",
+    "persian-chars",
     "national-id",
     "remove-ordinal-suffix",
-    "to-persian-chars",
     "url-fix",
     "verity-card-number",
     "phone-number",
@@ -43,11 +42,10 @@ full = [
 add-ordinal-suffix = []
 commas = []
 digits = []
-find-capital-by-province = ["to-persian-chars"]
-is-persian = []
+find-capital-by-province = ["persian-chars"]
+persian-chars = []
 national-id = ["dep:thiserror"]
 remove-ordinal-suffix = []
-to-persian-chars = []
 url-fix = ["dep:urlencoding"]
 verity-card-number = []
 phone-number = []

@@ -1,4 +1,4 @@
-use crate::to_persian_chars::to_persian_chars;
+use crate::persian_chars::to_persian_chars;
 
 /// Returns the capital name of province you enter
 pub fn find_capital_by_province<S>(inp: S) -> Option<String>
