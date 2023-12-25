@@ -1,5 +1,7 @@
-pub(super) fn get_word(num: u64) -> Option<&'static str> {
-    Some(match num {
+use super::error::NumberToWordsError;
+
+pub(super) fn get_defined_word(num: u64) -> Result<&'static str, NumberToWordsError> {
+    Ok(match num {
         1 => "یک",
         2 => "دو",
         3 => "سه",
@@ -36,9 +38,9 @@ pub(super) fn get_word(num: u64) -> Option<&'static str> {
         700 => "هفت صد",
         800 => "هشت صد",
         900 => "نه صد",
-        _ => return None,
+        _ => return Err(NumberToWordsError::Internal),
     })
 }
 
-pub(crate) static big_numbers: [&str; 6] =
+pub(crate) static WITH_3N_ZEROS: [&str; 6] =
     ["", "هزار", "میلیون", "میلیارد", "تریلیون", "کوآدریلیون"];
