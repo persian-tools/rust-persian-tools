@@ -91,3 +91,8 @@ phone-number:
 	@ ls -sh target/debug/*.rlib
 	cargo build --no-default-features --features="phone-number serde"
 	@ ls -sh target/debug/*.rlib
+
+bill:
+	@ echo ""
+	cargo build --no-default-features --features=bill
+	@ ls -sh target/debug/*.rlib

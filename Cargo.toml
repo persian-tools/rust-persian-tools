@@ -55,7 +55,7 @@ url-fix = ["dep:urlencoding"]
 verity-card-number = []
 phone-number = []
 serde = ["dep:serde"]
-bill = ["dep:num", "dep:num-derive", "dep:num-traits"]
+bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
 
 [package.metadata.docs.rs]
 all-features = true
