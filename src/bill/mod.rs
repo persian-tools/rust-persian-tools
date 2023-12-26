@@ -10,9 +10,12 @@
 //!  
 //! ```rust
 //! use rust_persian_tools::bill::{Bill, BillID, PaymentID};
+//! use rust_persian_tools::bill::BillType;
+//! use rust_persian_tools::bill::CurrencyType;
+//! use std::str::FromStr;
 //!
 //! // This checks both bill/payment IDs and their relation match (checksum2)
-//! let bill = Bill::from_str("77483178001420000001770160").unwrap());
+//! let bill = Bill::from_str("77483178001420000001770160").unwrap();
 //! assert_eq!(bill.get_bill_type(), BillType::Tel);   // Fixed Landline
 //! assert_eq!(bill.get_bill_id(), "7748317800142");
 //! assert_eq!(bill.get_payment_id(), "1770160");
@@ -24,10 +27,13 @@
 //! if checksum of Bill or Payment ID separately or checksum of them together be invalid Result will return `Err::BillError`
 //! ```rust  
 //! use rust_persian_tools::bill::{Bill, BillID, PaymentID};
+//! use rust_persian_tools::bill::CurrencyType;
+//! use rust_persian_tools::bill::BillType;
+//! use std::str::FromStr;
 //!
-//! let bill_id = BillId::from_str("7748317800142").unwrap()
-//! let payment_id = PaymentID::from_str("1770160").unwrap()
-//! let bill = Bill::new(bill_id, payment_id).unwrap());
+//! let bill_id = BillID::from_str("7748317800142").unwrap();
+//! let payment_id = PaymentID::from_str("1770160").unwrap();
+//! let bill = Bill::new(bill_id, payment_id).unwrap();
 //! assert_eq!(bill.get_bill_type(), BillType::Tel);   // Fixed Landline
 //! assert_eq!(bill.get_bill_id(), "7748317800142");
 //! assert_eq!(bill.get_payment_id(), "1770160");
@@ -38,10 +44,12 @@
 //! This will calculate checksums automatically
 //! ```rust
 //! use rust_persian_tools::bill::{Bill, BillID, PaymentID};
+//! use rust_persian_tools::bill::CurrencyType;
+//! use rust_persian_tools::bill::BillType;
 //!
-//! let bill_id = BillId::new("77483178", "001", BillType::Tel).unwrap()
-//! let payment_id = PaymentID::new(17, 7, 1, &bill_id).unwrap()  // Thousands are ommited from amount
-//! let bill = Bill::new(bill_id, payment_id).unwrap());
+//! let bill_id = BillID::new("77483178", "001", BillType::Tel).unwrap();
+//! let payment_id = PaymentID::new(17, 7, 1, &bill_id).unwrap();  // Thousands are ommited from amount
+//! let bill = Bill::new(bill_id, payment_id).unwrap();
 //! assert_eq!(bill.get_bill_type(), BillType::Tel);   // Fixed Landline
 //! assert_eq!(bill.get_bill_id(), "7748317800142");
 //! assert_eq!(bill.get_payment_id(), "1770160");
@@ -83,7 +91,9 @@ pub enum BillError {
 /// Values Are based on the مستندات طرح هماهنگ پرداخت الکترونیکی قبوض - کمیسیون انفورماتیک بانک‌ها \
 /// It is possible to use `BillType` directly or from integer value:  
 /// ```rust
-/// assert_eq!(FromPrimitive::from_u8(2), BillType::Electricity);
+/// use num::FromPrimitive;
+/// use rust_persian_tools::bill::BillType;
+/// assert_eq!(FromPrimitive::from_u8(2), Some(BillType::Electricity));
 /// ```
 #[derive(FromPrimitive, Clone, Copy, PartialEq, Debug)]
 pub enum BillType {
