@@ -22,7 +22,7 @@ Rust version of Persian Tools
 - [x] digits
 - [ ] extractCardNumbers
 - [x] findCapitalByProvince
-- [ ] getBankNameFromCardNumber
+- [-] getBankNameByCardNumber
 - [ ] getPlaceByIranNationalId
 - [ ] halfSpace
 - [ ] isArabic

@@ -42,6 +42,7 @@ full = [
     "phone-number",
     "bill",
     "number-to-words",
+    "get-bank-name-by-card-number",
 
 ]
 add-ordinal-suffix = []
@@ -57,7 +58,7 @@ phone-number = []
 serde = ["dep:serde"]
 bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
 number-to-words = ["dep:thiserror", "commas"]
-
+get-bank-name-by-card-number = ["dep:thiserror"]
 
 [package.metadata.docs.rs]
 all-features = true
