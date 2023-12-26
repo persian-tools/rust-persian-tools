@@ -1,11 +1,12 @@
-use crate::to_persian_chars::to_persian_chars;
+use crate::persian_chars::to_persian_chars;
 
 /// Returns the capital name of province you enter
 pub fn find_capital_by_province<S>(inp: S) -> Option<String>
 where
     S: Into<String>,
 {
-    let r = match to_persian_chars(inp).as_str() {
+    // TODO: Accept `AsRef<str>` and remove the following `inp.into()`
+    let r = match to_persian_chars(inp.into()).as_str() {
         "آذربایجان شرقی" => "تبریز",
         "آذربایجان غربی" => "ارومیه",
         "اردبیل" => "اردبیل",
