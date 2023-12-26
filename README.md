@@ -29,7 +29,7 @@ Rust version of Persian Tools
 - [x] isPersian
 - [ ] legalId
 - [x] nationalId
-- [-] numberToWords
+- [x] numberToWords
 - [ ] numberplate
 - [x] phoneNumber
 - [ ] remainingTime

@@ -56,7 +56,7 @@ verity-card-number = []
 phone-number = []
 serde = ["dep:serde"]
 bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
-number-to-words = []
+number-to-words = ["dep:thiserror", "commas"]
 
 
 [package.metadata.docs.rs]
