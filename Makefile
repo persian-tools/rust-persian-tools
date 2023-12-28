@@ -97,3 +97,8 @@ number-to-words:
 	cargo build --no-default-features --features=number-to-words
 
 	@ ls -sh target/debug/*.rlib
+
+get-bank-name-by-card-number:
+	@ echo ""
+	cargo build --no-default-features --features=get-bank-name-by-card-number
+	@ ls -sh target/debug/*.rlib

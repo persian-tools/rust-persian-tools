@@ -9,6 +9,8 @@
     feature = "url-fix",
     feature = "verity-card-number",
     feature = "phone-number",
+    feature = "number-to-words",
+    feature = "get-bank-name-by-card-number",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -47,3 +49,6 @@ pub mod bill;
 
 #[cfg(feature = "number-to-words")]
 pub mod number_to_words;
+
+#[cfg(feature = "get-bank-name-by-card-number")]
+pub mod get_bank_name_by_card_number;
