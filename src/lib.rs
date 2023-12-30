@@ -52,3 +52,6 @@ pub mod number_to_words;
 
 #[cfg(feature = "get-bank-name-by-card-number")]
 pub mod get_bank_name_by_card_number;
+
+#[cfg(feature = "time-ago")]
+pub mod time_ago;
