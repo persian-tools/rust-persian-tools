@@ -56,3 +56,6 @@ pub mod get_bank_name_by_card_number;
 
 #[cfg(feature = "extract-card-number")]
 pub mod extract_card_number;
+
+#[cfg(feature = "time-ago")]
+pub mod time_ago;

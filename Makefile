@@ -79,6 +79,11 @@ verity-card-number:
 	@ echo ""
 	cargo build --no-default-features --features=verity-card-number
 	@ ls -sh target/debug/*.rlib
+	
+time-ago:
+	@ echo ""
+	cargo build --no-default-features --features=time-ago
+	@ ls -sh target/debug/*.rlib
 
 phone-number:
 	@ echo ""

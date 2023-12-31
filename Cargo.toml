@@ -23,7 +23,7 @@ thiserror = { version = "1.0.48", optional = true }
 num = { version = "0.4", optional = true }
 num-derive = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
-
+chrono = { version = "0.4.31", optional = true }
 
 # Edit `Makefile` and `src/lib.src` after making changes in this section:
 [features]
@@ -44,6 +44,7 @@ full = [
     "number-to-words",
     "get-bank-name-by-card-number",
     "extract-card-number",
+    "time-ago",
 ]
 add-ordinal-suffix = []
 commas = []
@@ -60,6 +61,7 @@ bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
 number-to-words = ["dep:thiserror", "commas"]
 get-bank-name-by-card-number = ["dep:thiserror"]
 extract-card-number = []
+time-ago = ["dep:thiserror", "dep:chrono"]
 
 [package.metadata.docs.rs]
 all-features = true
