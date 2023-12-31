@@ -17,12 +17,12 @@ Rust version of Persian Tools
 
 - [x] URLfix
 - [x] addOrdinalSuffix
-- [ ] bill
+- [x] bill
 - [x] commas
 - [x] digits
-- [ ] extractCardNumbers
+- [-] extractCardNumbers
 - [x] findCapitalByProvince
-- [-] getBankNameByCardNumber
+- [x] getBankNameByCardNumber
 - [ ] getPlaceByIranNationalId
 - [ ] halfSpace
 - [ ] isArabic
@@ -36,7 +36,7 @@ Rust version of Persian Tools
 - [x] removeOrdinalSuffix
 - [ ] sheba
 - [ ] sortText
-- [ ] timeAgo
+- [x] timeAgo
 - [x] toPersianChars
 - [x] verifyCardNumber
 - [ ] wordsToNumber
