@@ -19,7 +19,7 @@ include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md"]
 regex = "1.10.2"
 urlencoding = { version = "2.1.3", optional = true }
 serde = { version = "1.0.193", features = ["derive"], optional = true }
-thiserror = { version = "1.0.53", optional = true }
+thiserror = { version = "1.0.56", optional = true }
 
 
 # Edit `Makefile` and `src/lib.src` after making changes in this section:
