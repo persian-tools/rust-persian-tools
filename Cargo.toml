@@ -43,6 +43,7 @@ full = [
     "bill",
     "number-to-words",
     "get-bank-name-by-card-number",
+    "extract-card-number",
     "time-ago",
 ]
 add-ordinal-suffix = []
@@ -59,6 +60,7 @@ serde = ["dep:serde"]
 bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
 number-to-words = ["dep:thiserror", "commas"]
 get-bank-name-by-card-number = ["dep:thiserror"]
+extract-card-number = []
 time-ago = ["dep:thiserror", "dep:chrono"]
 
 [package.metadata.docs.rs]

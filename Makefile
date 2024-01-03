@@ -107,3 +107,8 @@ get-bank-name-by-card-number:
 	@ echo ""
 	cargo build --no-default-features --features=get-bank-name-by-card-number
 	@ ls -sh target/debug/*.rlib
+
+extract-card-number:
+	@ echo ""
+	cargo build --no-default-features --features=extract-card-number
+	@ ls -sh target/debug/*.rlib

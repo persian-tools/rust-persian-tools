@@ -11,6 +11,7 @@
     feature = "phone-number",
     feature = "number-to-words",
     feature = "get-bank-name-by-card-number",
+    feature = "extract-card-number",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -52,6 +53,9 @@ pub mod number_to_words;
 
 #[cfg(feature = "get-bank-name-by-card-number")]
 pub mod get_bank_name_by_card_number;
+
+#[cfg(feature = "extract-card-number")]
+pub mod extract_card_number;
 
 #[cfg(feature = "time-ago")]
 pub mod time_ago;
