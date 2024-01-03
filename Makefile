@@ -4,7 +4,7 @@ fmt:
 	cargo fmt
 
 
-build: full default add-ordinal-suffix commas digits find-capital-by-province is-persian national-id remove-ordinal-suffix to-persian-chars url-fix verity-card-number phone-number
+build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number phone-number
 
 check: clippy lint
 
@@ -52,9 +52,9 @@ find-capital-by-province:
 	cargo build --no-default-features --features=find-capital-by-province
 	@ ls -sh target/debug/*.rlib
 
-is-persian:
+persian-chars:
 	@ echo ""
-	cargo build --no-default-features --features=is-persian
+	cargo build --no-default-features --features=persian-chars
 	@ ls -sh target/debug/*.rlib
 
 national-id:
@@ -70,11 +70,6 @@ remove-ordinal-suffix:
 	cargo build --no-default-features --features=remove-ordinal-suffix
 	@ ls -sh target/debug/*.rlib
 
-to-persian-chars:
-	@ echo ""
-	cargo build --no-default-features --features=to-persian-chars
-	@ ls -sh target/debug/*.rlib
-
 url-fix:
 	@ echo ""
 	cargo build --no-default-features --features=url-fix
@@ -84,10 +79,36 @@ verity-card-number:
 	@ echo ""
 	cargo build --no-default-features --features=verity-card-number
 	@ ls -sh target/debug/*.rlib
+	
+time-ago:
+	@ echo ""
+	cargo build --no-default-features --features=time-ago
+	@ ls -sh target/debug/*.rlib
 
 phone-number:
 	@ echo ""
 	cargo build --no-default-features --features=phone-number
 	@ ls -sh target/debug/*.rlib
 	cargo build --no-default-features --features="phone-number serde"
+	@ ls -sh target/debug/*.rlib
+
+
+bill:
+	@ echo ""
+	cargo build --no-default-features --features=bill
+
+number-to-words:
+	@ echo ""
+	cargo build --no-default-features --features=number-to-words
+
+	@ ls -sh target/debug/*.rlib
+
+get-bank-name-by-card-number:
+	@ echo ""
+	cargo build --no-default-features --features=get-bank-name-by-card-number
+	@ ls -sh target/debug/*.rlib
+
+extract-card-number:
+	@ echo ""
+	cargo build --no-default-features --features=extract-card-number
 	@ ls -sh target/debug/*.rlib
