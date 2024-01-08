@@ -1,9 +1,18 @@
 pub mod operators;
 
-use regex::Regex;
+use thiserror::Error;
 
-static MOBILE_REGEX: &str = r#"^(\+98|98|0098|0)?9(\d{2})\d{7}$"#;
 pub static PREFIXES: [&str; 4] = ["+98", "98", "0098", "0"];
+
+#[derive(Error, Debug)]
+pub enum PhoneNumberError {
+    #[error("This prefix is not a valid phone number (prefix : `{0}`)")]
+    InvalidPrefix(String),
+    #[error("The phone number format is invalid")]
+    InvalidFormat,
+    #[error("Unexpected error happened !")]
+    Unknown,
+}
 
 /// This is a simple function that checks if a phone number valid or not
 ///
@@ -12,13 +21,21 @@ pub static PREFIXES: [&str; 4] = ["+98", "98", "0098", "0"];
 /// ```
 /// use rust_persian_tools::phone_number::is_phone_valid;
 ///
-/// assert_eq!(is_phone_valid("00989122221811"),true);
-/// assert_eq!(is_phone_valid("09185371111"),true);
-/// assert_eq!(is_phone_valid("20989122221811"),false);
+/// assert!(is_phone_valid("+989122221811").is_ok());
+/// assert!(is_phone_valid("12903908").is_err());
 /// ```
-pub fn is_phone_valid(phone_number: &str) -> bool {
-    let regex = Regex::new(MOBILE_REGEX).unwrap();
-    regex.is_match(phone_number)
+pub fn is_phone_valid(phone_number: impl AsRef<str>) -> Result<(), PhoneNumberError> {
+    let phone_number = phone_number.as_ref();
+
+    let prefix = get_phone_prefix(phone_number).unwrap_or("");
+
+    let phone_number_without_prefix = &phone_number[prefix.len()..];
+
+    if phone_number_without_prefix.len() == 10 && phone_number_without_prefix.starts_with('9') {
+        return Ok(());
+    }
+
+    Err(PhoneNumberError::InvalidFormat)
 }
 
 /// returns phone prefix for example +98 98 based on given phone number
@@ -34,14 +51,21 @@ pub fn is_phone_valid(phone_number: &str) -> bool {
 /// ```
 /// use rust_persian_tools::phone_number::get_phone_prefix;
 ///
-/// assert_eq!(get_phone_prefix("00989122221811"),Some("0098"));
-/// assert_eq!(get_phone_prefix("09122221811"),Some("0"));
-/// assert_eq!(get_phone_prefix("29122221811"),None);
+/// assert_eq!(get_phone_prefix("00989122221811").unwrap(),"0098");
+/// assert_eq!(get_phone_prefix("09122221811").unwrap(),"0");
+/// assert!(get_phone_prefix("29122221811").is_err());
 /// ```
-pub fn get_phone_prefix(phone_number: &str) -> Option<&str> {
-    PREFIXES
+pub fn get_phone_prefix(phone_number: impl AsRef<str>) -> Result<&'static str, PhoneNumberError> {
+    let phone_number = phone_number.as_ref();
+
+    let prefix = PREFIXES
         .into_iter()
-        .find(|&prefix| phone_number.starts_with(prefix))
+        .find(|&prefix| phone_number.starts_with(prefix));
+
+    match prefix {
+        Some(pre) => Ok(pre),
+        None => Err(PhoneNumberError::InvalidFormat),
+    }
 }
 
 /// replaces current phone number prefix with your desired prefix
@@ -54,20 +78,24 @@ pub fn get_phone_prefix(phone_number: &str) -> Option<&str> {
 /// ```
 /// use rust_persian_tools::phone_number::phone_number_normalizer;
 ///
-/// assert_eq!(phone_number_normalizer("00989022002580" , "+98") , Some("+989022002580".to_string()));
-/// assert_eq!(phone_number_normalizer("9191282819921" , "0") , None);
+/// assert_eq!(phone_number_normalizer("+989373708555", "0").unwrap(),"09373708555".to_string());
+/// assert!(phone_number_normalizer("09132222", "+98").is_err());
 /// ```
-pub fn phone_number_normalizer(phone_number: &str, new_prefix: &str) -> Option<String> {
-    if !is_phone_valid(phone_number) {
-        return None;
-    }
+pub fn phone_number_normalizer(
+    phone_number: impl AsRef<str>,
+    new_prefix: impl AsRef<str>,
+) -> Result<String, PhoneNumberError> {
+    let phone_number = phone_number.as_ref();
+    let new_prefix = new_prefix.as_ref();
 
-    if let Some(prefix) = get_phone_prefix(phone_number) {
+    is_phone_valid(phone_number)?;
+
+    if let Ok(prefix) = get_phone_prefix(phone_number) {
         let (_, splited) = phone_number.split_at(prefix.len());
-        return Some(format!("{new_prefix}{splited}"));
+        return Ok(format!("{new_prefix}{splited}"));
     }
 
-    Some(format!("{new_prefix}{phone_number}"))
+    Ok(format!("{new_prefix}{phone_number}"))
 }
 
 /// returns operator prefix of phone number (919,912,...)
@@ -81,21 +109,19 @@ pub fn phone_number_normalizer(phone_number: &str, new_prefix: &str) -> Option<S
 /// ```
 /// use rust_persian_tools::phone_number::get_operator_prefix;
 ///
-/// assert_eq!(get_operator_prefix("00989013708555") , Some("901"));
-/// assert_eq!(get_operator_prefix("00988013708555") , None);
+/// assert_eq!(get_operator_prefix("00989013708555").unwrap() , "901");
+/// assert!(get_operator_prefix("00988013708555").is_err());
 /// ```
-pub fn get_operator_prefix(phone_number: &str) -> Option<&str> {
-    if !is_phone_valid(phone_number) {
-        return None;
-    }
+pub fn get_operator_prefix(phone_number: &str) -> Result<&str, PhoneNumberError> {
+    is_phone_valid(phone_number)?;
 
     for prefix in PREFIXES {
         if phone_number.starts_with(prefix) {
-            return Some(&phone_number[prefix.len()..prefix.len() + 3]);
+            return Ok(&phone_number[prefix.len()..prefix.len() + 3]);
         }
     }
 
-    None
+    Err(PhoneNumberError::InvalidFormat)
 }
 
 #[cfg(test)]
@@ -104,70 +130,73 @@ mod test_phone_number {
 
     #[test]
     fn check_phone_number_valid() {
-        assert_eq!(is_phone_valid("9122221811"), true);
-        assert_eq!(is_phone_valid("09122221811"), true);
-        assert_eq!(is_phone_valid("+989122221811"), true);
-        assert_eq!(is_phone_valid("12903908"), false);
-        assert_eq!(is_phone_valid("901239812390812908"), false);
+        assert!(is_phone_valid("9122221811").is_ok());
+        assert!(is_phone_valid("09122221811").is_ok());
+        assert!(is_phone_valid("+989122221811").is_ok());
+        assert!(is_phone_valid("12903908").is_err());
+        assert!(is_phone_valid("901239812390812908").is_err());
     }
 
     #[test]
     fn test_phone_number_normilizer() {
         // normalize to 0
+
         assert_eq!(
-            phone_number_normalizer("+989373708555", "0"),
-            Some("09373708555".to_string())
+            phone_number_normalizer("+989373708555", "0").unwrap(),
+            "09373708555".to_string()
+        );
+
+        assert_eq!(
+            phone_number_normalizer("989373708555", "0").unwrap(),
+            "09373708555".to_string()
+        );
+
+        assert_eq!(
+            phone_number_normalizer("00989022002580", "0").unwrap(),
+            "09022002580".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("989373708555", "0"),
-            Some("09373708555".to_string())
+            phone_number_normalizer("09122002580", "0").unwrap(),
+            "09122002580".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("00989022002580", "0"),
-            Some("09022002580".to_string())
-        );
-        assert_eq!(
-            phone_number_normalizer("09122002580", "0"),
-            Some("09122002580".to_string())
-        );
-        assert_eq!(
-            phone_number_normalizer("9322002580", "0"),
-            Some("09322002580".to_string())
+            phone_number_normalizer("9322002580", "0").unwrap(),
+            "09322002580".to_string()
         );
 
         // normalize to +98
         assert_eq!(
-            phone_number_normalizer("09373708555", "+98"),
-            Some("+989373708555".to_string())
+            phone_number_normalizer("09373708555", "+98").unwrap(),
+            "+989373708555".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("09022002580", "+98"),
-            Some("+989022002580".to_string())
+            phone_number_normalizer("09022002580", "+98").unwrap(),
+            "+989022002580".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("09122002580", "+98"),
-            Some("+989122002580".to_string())
+            phone_number_normalizer("09122002580", "+98").unwrap(),
+            "+989122002580".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("9322002580", "+98"),
-            Some("+989322002580".to_string())
+            phone_number_normalizer("9322002580", "+98").unwrap(),
+            "+989322002580".to_string()
         );
         assert_eq!(
-            phone_number_normalizer("00989022002580", "+98"),
-            Some("+989022002580".to_string())
+            phone_number_normalizer("00989022002580", "+98").unwrap(),
+            "+989022002580".to_string()
         );
     }
 
     #[test]
     fn test_phone_number_normilizer_invalid_phone() {
-        assert_eq!(phone_number_normalizer("09132222", "+98"), None);
-        assert_eq!(phone_number_normalizer("9191282819921", "0"), None);
+        assert!(phone_number_normalizer("09132222", "+98").is_err());
+        assert!(phone_number_normalizer("9191282819921", "0").is_err());
     }
 
     #[test]
     fn test_operator_prefix() {
-        assert_eq!(get_operator_prefix("+989373708555"), Some("937"));
-        assert_eq!(get_operator_prefix("00989013708555"), Some("901"));
-        assert_eq!(get_operator_prefix("00988013708555"), None);
+        assert_eq!(get_operator_prefix("+989373708555").unwrap(), "937");
+        assert_eq!(get_operator_prefix("00989013708555").unwrap(), "901");
+        assert!(get_operator_prefix("00988013708555").is_err());
     }
 }
