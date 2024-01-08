@@ -12,6 +12,7 @@
     feature = "number-to-words",
     feature = "get-bank-name-by-card-number",
     feature = "extract-card-number",
+    feature = "get-place-by-iran-national-id",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -59,3 +60,6 @@ pub mod extract_card_number;
 
 #[cfg(feature = "time-ago")]
 pub mod time_ago;
+
+#[cfg(feature = "get-place-by-iran-national-id")]
+pub mod get_place_by_iran_national_id;
