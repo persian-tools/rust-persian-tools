@@ -112,3 +112,8 @@ extract-card-number:
 	@ echo ""
 	cargo build --no-default-features --features=extract-card-number
 	@ ls -sh target/debug/*.rlib
+
+get-place-by-iran-national-id:
+	@ echo ""
+	cargo build --no-default-features --features=get-place-by-iran-national-id
+	@ ls -sh target/debug/*.rlib
