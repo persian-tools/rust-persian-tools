@@ -20,7 +20,7 @@ Rust version of Persian Tools
 - [x] bill
 - [x] commas
 - [x] digits
-- [-] extractCardNumbers
+- [x] extractCardNumbers
 - [x] findCapitalByProvince
 - [x] getBankNameByCardNumber
 - [-] getPlaceByIranNationalId

@@ -1,4 +1,4 @@
-use crate::phone_number::{get_operator_prefix, is_phone_valid};
+use crate::phone_number::{get_operator_prefix, is_phone_valid, PhoneNumberError};
 use std::borrow::Cow;
 
 pub mod constants {
@@ -439,7 +439,7 @@ impl<'a> OperatorDetails<'a> {
     }
 
     pub fn base(&self) -> &'a str {
-        &self.base
+        self.base
     }
 
     pub fn model(&self) -> Option<&'a str> {
@@ -514,12 +514,17 @@ pub fn prefixes() -> Vec<&'static str> {
 /// assert_eq!(details.sim_type_list(), &[SimType::Permanent, SimType::Credit]);
 /// assert_eq!(details.operator(), Operator::MCI);
 ///
-/// assert_eq!(get_prefix_details("9100"), None);
+/// assert!(get_prefix_details("9100").is_err());
 /// ```
-pub fn get_prefix_details(prefix: &str) -> Option<&OperatorDetails<'static>> {
-    all_operators()
+pub fn get_prefix_details(prefix: &str) -> Result<&OperatorDetails<'static>, PhoneNumberError> {
+    let result = all_operators()
         .find(|(key, _)| key == &prefix)
-        .map(|(_, details)| details)
+        .map(|(_, details)| details);
+
+    match result {
+        Some(detail) => Ok(detail),
+        None => Err(PhoneNumberError::InvalidPrefix(prefix.to_string())),
+    }
 }
 
 /// returns operator details of givin phone number
@@ -535,14 +540,14 @@ pub fn get_prefix_details(prefix: &str) -> Option<&OperatorDetails<'static>> {
 /// assert_eq!(details.sim_type_list(), &[SimType::Credit]);
 /// assert_eq!(details.operator(), Operator::MCI);
 ///
-/// assert_eq!(get_phone_details("009195431812") , None);
+/// assert!(get_phone_details("009195431812").is_err());
 /// ```
-pub fn get_phone_details(phone_number: &str) -> Option<&OperatorDetails<'static>> {
-    if !is_phone_valid(phone_number) {
-        return None;
-    }
+pub fn get_phone_details(
+    phone_number: &str,
+) -> Result<&OperatorDetails<'static>, PhoneNumberError> {
+    is_phone_valid(phone_number)?;
 
-    get_operator_prefix(phone_number).and_then(|prefix| get_prefix_details(prefix))
+    get_operator_prefix(phone_number).and_then(get_prefix_details)
 }
 
 #[cfg(test)]
@@ -552,43 +557,43 @@ mod test_mobile_operators {
     #[test]
     fn test_get_phone_prefix_operator() {
         assert_eq!(
-            get_prefix_details("904"),
-            Some(&OperatorDetails {
+            get_prefix_details("904").unwrap(),
+            &OperatorDetails {
                 base: "کشوری",
                 province: Cow::Borrowed(&[]),
                 sim_types: Cow::Borrowed(&[SimType::Credit]),
                 operator: Operator::Irancell,
                 model: Some("سیم‌کارت کودک"),
-            },)
+            },
         );
 
         assert_eq!(
-            get_prefix_details("910"),
-            Some(&OperatorDetails {
+            get_prefix_details("910").unwrap(),
+            &OperatorDetails {
                 base: "کشوری",
                 province: Cow::Borrowed(&[]),
                 sim_types: Cow::Borrowed(&[SimType::Permanent, SimType::Credit]),
                 operator: Operator::MCI,
                 model: None,
-            },)
+            },
         );
 
-        assert_eq!(get_prefix_details("9100"), None);
+        assert!(get_prefix_details("9100").is_err());
     }
 
     #[test]
     fn test_get_phone_details() {
         assert_eq!(
-            get_phone_details("09195431812"),
-            Some(&OperatorDetails {
+            get_phone_details("09195431812").unwrap(),
+            &OperatorDetails {
                 base: "تهران",
                 province: Cow::Borrowed(&["البرز", "سمنان", "قم", "قزوین", "زنجان"]),
                 sim_types: Cow::Borrowed(&[SimType::Credit]),
                 operator: Operator::MCI,
                 model: None,
-            },)
+            },
         );
 
-        assert_eq!(get_phone_details("009195431812"), None);
+        assert!(get_phone_details("009195431812").is_err());
     }
 }
