@@ -45,6 +45,7 @@ full = [
     "get-bank-name-by-card-number",
     "extract-card-number",
     "time-ago",
+    "get-place-by-iran-national-id",
 ]
 add-ordinal-suffix = []
 commas = []
@@ -62,6 +63,7 @@ number-to-words = ["dep:thiserror", "commas"]
 get-bank-name-by-card-number = ["dep:thiserror"]
 extract-card-number = []
 time-ago = ["dep:thiserror", "dep:chrono"]
+get-place-by-iran-national-id = []
 
 [package.metadata.docs.rs]
 all-features = true
