@@ -9,9 +9,11 @@
     feature = "url-fix",
     feature = "verity-card-number",
     feature = "phone-number",
+    feature = "bill",
     feature = "number-to-words",
     feature = "get-bank-name-by-card-number",
     feature = "extract-card-number",
+    feature = "time-ago",
     feature = "get-place-by-iran-national-id",
 )))]
 compile_error!("No available Cargo feature is included");
