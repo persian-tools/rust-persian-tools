@@ -117,3 +117,8 @@ get-place-by-iran-national-id:
 	@ echo ""
 	cargo build --no-default-features --features=get-place-by-iran-national-id
 	@ ls -sh target/debug/*.rlib
+
+half-space:
+	@ echo ""
+	cargo build --no-default-features --features=half-space
+	@ ls -sh target/debug/*.rlib

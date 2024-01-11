@@ -65,3 +65,6 @@ pub mod time_ago;
 
 #[cfg(feature = "get-place-by-iran-national-id")]
 pub mod get_place_by_iran_national_id;
+
+#[cfg(feature = "half-space")]
+pub mod half_space;
