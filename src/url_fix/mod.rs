@@ -4,8 +4,8 @@ use urlencoding::decode;
 /// separator: space by default <br>
 ///
 /// Example:<br>
-/// url_fix('https://fa.wikipedia.org/wiki/%D9%85%DA%A9%D8%A7%D9%86%DB%8C%DA%A9%20%DA%A9%D9%88%D8%A7%D9%86%D8%AA%D9%88%D9%85%DB%8C', '_');<br>
-/// return 'https://fa.wikipedia.org/wiki/مکانیک_کوانتومی'<br>
+/// url_fix('<https://fa.wikipedia.org/wiki/%D9%85%DA%A9%D8%A7%D9%86%DB%8C%DA%A9%20%DA%A9%D9%88%D8%A7%D9%86%D8%AA%D9%88%D9%85%DB%8C>', '_');<br>
+/// return '<https://fa.wikipedia.org/wiki/مکانیک_کوانتومی>'<br>
 /// @return {string} a string of fixed URL
 pub fn url_fix<S>(url: S, separator: Option<S>) -> String
 where

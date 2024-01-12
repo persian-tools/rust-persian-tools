@@ -29,18 +29,14 @@ pub fn extract_card_number(inp: impl AsRef<str>) -> Vec<ExtractedCardNumber> {
     for c in inp.chars() {
         let converted = convert(c);
 
-        if converted.is_digit(10) {
+        if converted.is_ascii_digit() {
             base.push(converted);
             pure.push(c);
-        } else {
-            if c != '-' && c != ' ' {
-                base.clear();
-                pure.clear();
-            } else {
-                if !pure.is_empty() {
-                    pure.push(c);
-                }
-            }
+        } else if c != '-' && c != ' ' {
+            base.clear();
+            pure.clear();
+        } else if !pure.is_empty() {
+            pure.push(c);
         }
 
         if base.len() == 16 {
