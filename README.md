@@ -24,10 +24,10 @@ Rust version of Persian Tools
 - [x] findCapitalByProvince
 - [x] getBankNameByCardNumber
 - [x] getPlaceByIranNationalId
-- [ ] halfSpace
+- [x] halfSpace
 - [ ] isArabic
 - [x] isPersian
-- [ ] legalId
+- [-] legalId
 - [x] nationalId
 - [x] numberToWords
 - [ ] numberplate

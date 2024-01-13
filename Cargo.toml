@@ -47,6 +47,7 @@ full = [
     "time-ago",
     "get-place-by-iran-national-id",
     "half-space",
+    "legal-id"
 ]
 add-ordinal-suffix = []
 commas = []
@@ -66,6 +67,7 @@ extract-card-number = []
 time-ago = ["dep:thiserror", "dep:chrono"]
 get-place-by-iran-national-id = ["dep:thiserror"]
 half-space = []
+legal-id= ["dep:thiserror"]
 
 [package.metadata.docs.rs]
 all-features = true
