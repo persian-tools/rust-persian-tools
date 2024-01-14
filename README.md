@@ -27,7 +27,7 @@ Rust version of Persian Tools
 - [x] halfSpace
 - [ ] isArabic
 - [x] isPersian
-- [-] legalId
+- [x] legalId
 - [x] nationalId
 - [x] numberToWords
 - [ ] numberplate
