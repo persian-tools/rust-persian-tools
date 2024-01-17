@@ -17,6 +17,7 @@
     feature = "get-place-by-iran-national-id",
     feature = "half-space",
     feature = "legal-id",
+    feature = "words-to-number",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -73,3 +74,6 @@ pub mod half_space;
 
 #[cfg(feature = "legal-id")]
 pub mod legal_id;
+
+#[cfg(feature = "words-to-number")]
+pub mod words_to_number;
