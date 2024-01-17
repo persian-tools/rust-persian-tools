@@ -32,7 +32,6 @@ pub fn verify_card_number(digits: impl AsRef<str>) -> Result<(), VerifyCardNumbe
         };
     }
 
-    dbg!(&sum);
     if sum % 10 == 0 {
         Ok(())
     } else {
