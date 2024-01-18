@@ -18,6 +18,7 @@
     feature = "half-space",
     feature = "legal-id",
     feature = "words-to-number",
+    feature = "sheba",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -77,3 +78,6 @@ pub mod legal_id;
 
 #[cfg(feature = "words-to-number")]
 pub mod words_to_number;
+
+#[cfg(feature = "sheba")]
+pub mod sheba;

@@ -47,6 +47,7 @@ full = [
     "half-space",
     "legal-id",
     "words-to-number",
+    "sheba",
 ] # For now, by default we enable all features:
 
 
@@ -71,6 +72,8 @@ get-place-by-iran-national-id = ["dep:thiserror"]
 half-space = []
 legal-id = ["dep:thiserror"]
 words-to-number = ["dep:thiserror", "commas", "digits", "remove-ordinal-suffix"]
+sheba = ["dep:thiserror"]
+
 [package.metadata.docs.rs]
 all-features = true
 
