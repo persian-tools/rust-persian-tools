@@ -34,12 +34,12 @@ Rust version of Persian Tools
 - [x] phoneNumber
 - [ ] remainingTime
 - [x] removeOrdinalSuffix
-- [ ] sheba
+- [x] sheba
 - [ ] sortText
 - [x] timeAgo
 - [x] toPersianChars
 - [x] verifyCardNumber
-- [ ] wordsToNumber
+- [x] wordsToNumber
 
 ## Other TODOs
 

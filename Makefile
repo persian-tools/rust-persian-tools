@@ -4,7 +4,7 @@ fmt:
 	cargo fmt
 
 
-build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number time-ago phone-number bill number-to-words get-bank-name-by-card-number extract-card-number get-place-by-iran-national-id half-space legal-id words-to-number
+build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number time-ago phone-number bill number-to-words get-bank-name-by-card-number extract-card-number get-place-by-iran-national-id half-space legal-id words-to-number sheba
 
 check: clippy lint
 
@@ -126,7 +126,13 @@ half-space:
 legal-id:
 	@ echo ""
 	cargo build --no-default-features --features=legal-id
+
 words-to-number:
 	@ echo ""
 	cargo build --no-default-features --features=words-to-number
+	@ ls -sh target/debug/*.rlib
+
+sheba:
+	@ echo ""
+	cargo build --no-default-features --features=sheba
 	@ ls -sh target/debug/*.rlib
