@@ -4,6 +4,7 @@
     feature = "digits",
     feature = "find-capital-by-province",
     feature = "persian-chars",
+    feature = "arabic-chars",
     feature = "national-id",
     feature = "remove-ordinal-suffix",
     feature = "url-fix",
@@ -36,6 +37,9 @@ pub mod find_capital_by_province;
 
 #[cfg(feature = "persian-chars")]
 pub mod persian_chars;
+
+#[cfg(feature = "persian-chars")]
+pub mod arabic_chars;
 
 #[cfg(feature = "national-id")]
 pub mod national_id;

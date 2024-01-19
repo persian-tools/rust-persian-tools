@@ -24,8 +24,8 @@ Rust version of Persian Tools
 - [x] findCapitalByProvince
 - [x] getBankNameByCardNumber
 - [x] getPlaceByIranNationalId
+- [x] isArabic
 - [x] halfSpace
-- [ ] isArabic
 - [x] isPersian
 - [x] legalId
 - [x] nationalId
