@@ -35,6 +35,7 @@ full = [
     "digits",
     "find-capital-by-province",
     "persian-chars",
+    "arabic-chars",
     "national-id",
     "remove-ordinal-suffix",
     "url-fix",
@@ -52,6 +53,7 @@ commas = []
 digits = []
 find-capital-by-province = ["persian-chars"]
 persian-chars = []
+arabic-chars = []
 national-id = ["dep:thiserror"]
 remove-ordinal-suffix = []
 url-fix = ["dep:urlencoding"]

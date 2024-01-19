@@ -25,7 +25,7 @@ Rust version of Persian Tools
 - [x] getBankNameByCardNumber
 - [x] getPlaceByIranNationalId
 - [ ] halfSpace
-- [ ] isArabic
+- [x] isArabic
 - [x] isPersian
 - [ ] legalId
 - [x] nationalId
