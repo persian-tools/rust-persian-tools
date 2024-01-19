@@ -16,6 +16,10 @@
     feature = "extract-card-number",
     feature = "time-ago",
     feature = "get-place-by-iran-national-id",
+    feature = "half-space",
+    feature = "legal-id",
+    feature = "words-to-number",
+    feature = "sheba",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -69,3 +73,15 @@ pub mod time_ago;
 
 #[cfg(feature = "get-place-by-iran-national-id")]
 pub mod get_place_by_iran_national_id;
+
+#[cfg(feature = "half-space")]
+pub mod half_space;
+
+#[cfg(feature = "legal-id")]
+pub mod legal_id;
+
+#[cfg(feature = "words-to-number")]
+pub mod words_to_number;
+
+#[cfg(feature = "sheba")]
+pub mod sheba;

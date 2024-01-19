@@ -139,7 +139,7 @@ pub fn time_ago(datetime: Option<impl AsRef<str>>) -> Result<String, TimeAgoErro
 
     let elapsed = ts_now - ts;
 
-    if elapsed <= 1 && elapsed >= -1 {
+    if (-1..=1).contains(&elapsed) {
         return Ok("اکنون".to_string());
     }
 

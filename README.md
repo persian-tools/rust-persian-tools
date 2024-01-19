@@ -24,22 +24,22 @@ Rust version of Persian Tools
 - [x] findCapitalByProvince
 - [x] getBankNameByCardNumber
 - [x] getPlaceByIranNationalId
-- [ ] halfSpace
 - [x] isArabic
+- [x] halfSpace
 - [x] isPersian
-- [ ] legalId
+- [x] legalId
 - [x] nationalId
 - [x] numberToWords
 - [ ] numberplate
 - [x] phoneNumber
 - [ ] remainingTime
 - [x] removeOrdinalSuffix
-- [ ] sheba
+- [x] sheba
 - [ ] sortText
 - [x] timeAgo
 - [x] toPersianChars
 - [x] verifyCardNumber
-- [ ] wordsToNumber
+- [x] wordsToNumber
 
 ## Other TODOs
 

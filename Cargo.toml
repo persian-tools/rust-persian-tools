@@ -27,8 +27,6 @@ chrono = { version = "0.4.31", optional = true }
 
 # Edit `Makefile` and `src/lib.src` after making changes in this section:
 [features]
-# For now, by default we enable all features:
-default = ["full"]
 full = [
     "add-ordinal-suffix",
     "commas",
@@ -47,7 +45,14 @@ full = [
     "extract-card-number",
     "time-ago",
     "get-place-by-iran-national-id",
-]
+    "half-space",
+    "legal-id",
+    "words-to-number",
+    "sheba",
+] # For now, by default we enable all features:
+
+
+default = ["full"]
 add-ordinal-suffix = []
 commas = []
 digits = []
@@ -66,6 +71,10 @@ get-bank-name-by-card-number = ["dep:thiserror"]
 extract-card-number = []
 time-ago = ["dep:thiserror", "dep:chrono"]
 get-place-by-iran-national-id = ["dep:thiserror"]
+half-space = []
+legal-id = ["dep:thiserror"]
+words-to-number = ["dep:thiserror", "commas", "digits", "remove-ordinal-suffix"]
+sheba = ["dep:thiserror"]
 
 [package.metadata.docs.rs]
 all-features = true

@@ -63,7 +63,6 @@ pub fn add_commas_mut(str_mut: &mut String) {
         .position(|c| c == '.')
         .unwrap_or_else(|| str_mut.chars().filter(comma_less).count());
 
-    dbg!(end);
     let mut i = 0;
     while i < end {
         if (end - i) % 3 == 0 && i != 0 {
