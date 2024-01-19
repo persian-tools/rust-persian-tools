@@ -1,12 +1,12 @@
 use chrono::{DateTime, Local, NaiveDateTime, TimeZone};
 use thiserror::Error;
 
-const MINUTE: i64 = 60;
-const HOUR: i64 = MINUTE * 60;
-const DAY: i64 = HOUR * 24;
-const WEEK: i64 = DAY * 7;
-const MONTH: i64 = DAY * 30;
-const YEAR: i64 = DAY * 365;
+pub(crate) const MINUTE: i64 = 60;
+pub(crate) const HOUR: i64 = MINUTE * 60;
+pub(crate) const DAY: i64 = HOUR * 24;
+pub(crate) const WEEK: i64 = DAY * 7;
+pub(crate) const MONTH: i64 = DAY * 30;
+pub(crate) const YEAR: i64 = DAY * 365;
 
 #[derive(Error, Debug)]
 pub enum TimeAgoError {
