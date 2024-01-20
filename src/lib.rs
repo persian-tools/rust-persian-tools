@@ -20,6 +20,7 @@
     feature = "legal-id",
     feature = "words-to-number",
     feature = "sheba",
+    feature = "remaining-time",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -85,3 +86,6 @@ pub mod words_to_number;
 
 #[cfg(feature = "sheba")]
 pub mod sheba;
+
+#[cfg(feature = "remaining-time")]
+pub mod remaining_time;
