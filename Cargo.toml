@@ -16,7 +16,7 @@ include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md"]
 
 
 [dependencies]
-regex = "1.10.2"
+regex = "1.10.3"
 urlencoding = { version = "2.1.3", optional = true }
 serde = { version = "1.0.195", features = ["derive"], optional = true }
 thiserror = { version = "1.0.56", optional = true }
