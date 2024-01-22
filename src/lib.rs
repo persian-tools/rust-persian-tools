@@ -54,6 +54,9 @@ pub mod url_fix;
 #[cfg(feature = "verity-card-number")]
 pub mod verity_card_number;
 
+#[cfg(feature = "number-plate")]
+pub mod number_plate;
+
 #[cfg(feature = "phone-number")]
 pub mod phone_number;
 
