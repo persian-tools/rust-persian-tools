@@ -7,9 +7,9 @@ pub fn normalize_plate(plate: PlateOptions) -> NormalizedPlate {
             let nums: String = s.chars().filter(|c| c.is_numeric()).collect();
             (Some(chars), nums)
         }
-        PlateOptions::Api(api) => (
-            api.char,
-            api.number.chars().filter(|c| c.is_numeric()).collect(),
+        PlateOptions::PlateApi(plate_api) => (
+            plate_api.char,
+            plate_api.number.chars().filter(|c| c.is_numeric()).collect(),
         ),
     };
 

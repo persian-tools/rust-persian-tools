@@ -48,7 +48,7 @@ pub struct PlateResultApi {
 #[derive(Debug)]
 pub enum PlateOptions {
     Str(String),
-    Api(PlateApi),
+    PlateApi(PlateApi),
 }
 
 #[derive(Debug)]
