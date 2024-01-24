@@ -89,6 +89,11 @@ time-ago:
 	cargo build --no-default-features --features=time-ago
 	@ ls -sh target/debug/*.rlib
 
+number-plate:
+	@ echo ""
+	cargo build --no-default-features --features=number-plate
+	@ ls -sh target/debug/*.rlib
+
 phone-number:
 	@ echo ""
 	cargo build --no-default-features --features=phone-number
@@ -140,7 +145,6 @@ sheba:
 	@ echo ""
 	cargo build --no-default-features --features=sheba
 	@ ls -sh target/debug/*.rlib
-
 
 remaining-time:
 	@ echo ""

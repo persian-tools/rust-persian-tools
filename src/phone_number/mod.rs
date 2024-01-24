@@ -125,7 +125,7 @@ pub fn get_operator_prefix(phone_number: &str) -> Result<&str, PhoneNumberError>
 }
 
 #[cfg(test)]
-mod test_phone_number {
+mod tests {
     use super::*;
 
     #[test]

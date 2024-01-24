@@ -37,6 +37,7 @@ full = [
     "remove-ordinal-suffix",
     "url-fix",
     "verity-card-number",
+    "number-plate",
     "phone-number",
     "bill",
     "number-to-words",
@@ -62,6 +63,7 @@ arabic-chars = []
 national-id = ["dep:thiserror"]
 remove-ordinal-suffix = []
 url-fix = ["dep:urlencoding"]
+number-plate = []
 phone-number = ["dep:thiserror"]
 verity-card-number = ["dep:thiserror"]
 serde = ["dep:serde"]
