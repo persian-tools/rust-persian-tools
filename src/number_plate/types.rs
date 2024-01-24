@@ -1,42 +1,36 @@
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct PlateResult {
     pub info: PlateResultApi,
     pub is_valid: bool,
 }
 
-#[derive(Debug)]
-pub struct PlateApi {
-    pub number: String,
-    pub char: Option<String>,
-}
-
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum PlateTypes {
     Car = 1,
     Motorcycle = 2,
 }
 
-#[derive(Debug)]
-pub struct PlateResultDetailModel {
+#[derive(PartialEq, Debug)]
+pub struct PlateResultCarDetailModel {
     pub first_two_digits: String,
     pub plate_character: Option<String>,
     pub next_three_digits: String,
     pub province_code: String,
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct PlateResultMotorcycleDetailModel {
     pub digits: String,
     pub province_code: String,
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum PlateResultApiDetails {
-    CarDetail(PlateResultDetailModel),
+    CarDetail(PlateResultCarDetailModel),
     MotorcycleDetail(PlateResultMotorcycleDetailModel),
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct PlateResultApi {
     pub template: String,
     pub province: Option<&'static str>,
@@ -45,13 +39,7 @@ pub struct PlateResultApi {
     pub category: Option<&'static str>,
 }
 
-#[derive(Debug)]
-pub enum PlateOptions {
-    Str(String),
-    PlateApi(PlateApi),
-}
-
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub struct NormalizedPlate {
     pub numbers: String,
     pub char: Option<String>,
