@@ -172,7 +172,7 @@ pub fn time_ago(datetime: Option<impl AsRef<str>>) -> Result<String, TimeAgoErro
 }
 
 #[cfg(test)]
-mod test_time_ago {
+mod tests {
     use super::*;
     use chrono::Duration;
 

@@ -551,7 +551,7 @@ pub fn get_phone_details(
 }
 
 #[cfg(test)]
-mod test_mobile_operators {
+mod tests {
     use super::*;
 
     #[test]
