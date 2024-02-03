@@ -1,11 +1,6 @@
 use std::borrow::Cow;
 
 pub mod chars {
-    pub static FA_ALPHABET: &str = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
-    pub static FA_NUMBER: &str = "۰۱۲۳۴۵۶۷۸۹";
-    pub static FA_SHORT_VOWELS: &str = "َُِ";
-    pub static FA_OTHERS: &str = "‌آاً";
-    pub static FA_MIXED_WITH_ARABIC: &str = "ًٌٍَُِّْٰٔءك‌ةۀأإيـئؤ،";
     pub static FA_TEXT: &str = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی۰۱۲۳۴۵۶۷۸۹َُِ‌آاً؟ ";
     pub static FA_COMPLEX_TEXT: &str = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی۰۱۲۳۴۵۶۷۸۹َُِ‌آأًًٌٍَُِّْٰءك‌ةۀأإيـئؤ،؟ ";
 }
