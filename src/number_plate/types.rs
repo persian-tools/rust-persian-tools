@@ -1,42 +1,36 @@
 #[derive(PartialEq, Debug)]
-pub struct PlateResult {
-    pub info: PlateResultApi,
-    pub is_valid: bool,
-}
-
-#[derive(PartialEq, Debug)]
 pub enum PlateTypes {
     Car = 1,
     Motorcycle = 2,
 }
 
 #[derive(PartialEq, Debug)]
-pub struct PlateResultCarDetailModel {
+pub struct CarPlateDetail {
     pub first_two_digits: String,
-    pub plate_character: Option<String>,
+    pub plate_character: String,
     pub next_three_digits: String,
     pub province_code: String,
 }
 
 #[derive(PartialEq, Debug)]
-pub struct PlateResultMotorcycleDetailModel {
+pub struct MotorcyclePlateDetail {
     pub digits: String,
     pub province_code: String,
 }
 
 #[derive(PartialEq, Debug)]
-pub enum PlateResultApiDetails {
-    CarDetail(PlateResultCarDetailModel),
-    MotorcycleDetail(PlateResultMotorcycleDetailModel),
+pub enum PlateResultDetails {
+    CarDetail(CarPlateDetail),
+    MotorcycleDetail(MotorcyclePlateDetail),
 }
 
 #[derive(PartialEq, Debug)]
-pub struct PlateResultApi {
+pub struct Plate {
     pub template: String,
-    pub province: Option<&'static str>,
+    pub province: String,
     pub plate_type: PlateTypes,
-    pub details: PlateResultApiDetails,
-    pub category: Option<&'static str>,
+    pub details: PlateResultDetails,
+    pub category: Option<String>,
 }
 
 #[derive(PartialEq, Debug)]

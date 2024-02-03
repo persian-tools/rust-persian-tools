@@ -19,7 +19,7 @@
 /// }
 /// ```
 pub fn add_commas(number_str: impl AsRef<str>) -> String {
-    let number_str = number_str.as_ref().replace(",", ""); // Remove existing commas
+    let number_str = number_str.as_ref().replace(',', ""); // Remove existing commas
 
     let dot_index = number_str.find('.').unwrap_or(number_str.len());
 
