@@ -18,28 +18,26 @@
 ///     }
 /// }
 /// ```
-pub fn add_commas(inp: impl AsRef<str>) -> String {
-    let inp = inp.as_ref();
-    let comma_less = |c: &char| c != &',';
+pub fn add_commas(number_str: impl AsRef<str>) -> String {
+    let number_str = number_str.as_ref().replace(",", ""); // Remove existing commas
 
-    let mut end = inp
+    let dot_index = number_str.find('.').unwrap_or(number_str.len());
+
+    let result = number_str[..dot_index]
         .chars()
-        .filter(comma_less)
-        .position(|c| c == '.')
-        .unwrap_or_else(|| inp.chars().filter(comma_less).count());
-
-    let mut result = String::new();
-    for (i, ch) in inp.chars().filter(comma_less).enumerate() {
-        if end == i {
-            end += inp.chars().filter(|c| c == &',').count();
-            result.push_str(&inp[end..inp.chars().count()]);
-            break;
-        }
-        if (end - i) % 3 == 0 && i != 0 {
-            result.push(',')
-        }
-        result.push(ch);
-    }
+        .rev()
+        .enumerate()
+        .fold(String::new(), |mut acc, (i, digit)| {
+            if i > 0 && i % 3 == 0 {
+                acc.push(',');
+            }
+            acc.push(digit);
+            acc
+        })
+        .chars()
+        .rev()
+        .collect::<String>()
+        + &number_str[dot_index..];
 
     result
 }

@@ -50,8 +50,6 @@ pub(super) static MAGNITUDE: &[(&str, i64)] = &[
     ("تریلیون", 1000000000000),
 ];
 
-// pub(super) static ALL_WORDS: &[(&str, i64)] = UNITS.iter().chain(MAGNITUDE.iter());
-
 pub(super) fn get_unit_number(unit: &str) -> Option<&i64> {
     let result = UNITS
         .iter()

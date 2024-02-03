@@ -1,26 +1,18 @@
 use std::borrow::Cow;
 
-pub mod chars {
-    pub static AR_NUMBER: &str = "٠١٢٣٤٥٦٧٨٩"; // tick
-    pub static AR_TEXT: &str =
-        "ابتثجحخدذرزسشصضطظعغفقكلمنهويآةى؟ؠءأؤإ ؘ ؙ ؚ؛ ً ٌ ٍ َ ُ ِ ّ ْ ٓ ٔ ٕ ٖ ٗ ٘ ٙ ٚ ٛ ٝ ٞ ٟ٠١٢٣٤٥٦٧٨٩";
-}
+const AR_TEXT: &str = "ابتثجحخدذرزسشصضطظعغفقكلمنهويآةى؟ؠءأؤإ ؘ ؙ ؚ؛ ً ٌ ٍ َ ُ ِ ّ ْ ٓ ٔ ٕ ٖ ٗ ٘ ٙ ٚ ٛ ٝ ٞ ٟ٠١٢٣٤٥٦٧٨٩";
 
 /// Return true if the entered string includes arabic characters
 pub fn has_arabic(input: impl AsRef<str>) -> bool {
     input
         .as_ref()
         .chars()
-        .any(|char| char != ' ' && chars::AR_TEXT.contains(char))
+        .any(|char| char != ' ' && AR_TEXT.contains(char))
 }
 
 /// Return true if the entered string does not include other-language characters.
 pub fn is_arabic(input: impl AsRef<str>) -> bool {
-    !input.as_ref().is_empty()
-        && input
-            .as_ref()
-            .chars()
-            .all(|char| chars::AR_TEXT.contains(char))
+    !input.as_ref().is_empty() && input.as_ref().chars().all(|char| AR_TEXT.contains(char))
 }
 
 /// Description: Replaces all instances of ی and ک with  ي and ك,
