@@ -10,21 +10,17 @@ where
 
     if word.ends_with("مین") {
         word = word[0..word.len() - ("مین".len())].to_string()
-    }
-    if word.ends_with("اُم") {
+    } else if word.ends_with("اُم") {
         word = word[0..word.len() - ("اُم".len())].trim().to_string()
-    }
-    if word.ends_with("ام") {
+    } else if word.ends_with("ام") {
         word = word[0..word.len() - ("ام".len())].trim().to_string()
-    }
-
-    if word.ends_with("سوم") {
+    } else if word.ends_with("سوم") {
         word = word[0..word.len() - ("سوم".len())].to_string();
         word += "سه";
-    }
-    if word.ends_with('م') {
+    } else if word.ends_with('م') {
         word = word[0..word.len() - ("م".len())].to_string()
     }
+
     word
 }
 
