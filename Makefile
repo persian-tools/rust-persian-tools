@@ -3,7 +3,7 @@ all: build check test docs
 fmt:
 	cargo fmt
 
-build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number time-ago phone-number bill number-to-words get-bank-name-by-card-number extract-card-number get-place-by-iran-national-id half-space legal-id words-to-number sheba remaining-time
+build: full default add-ordinal-suffix commas digits find-capital-by-province persian-chars national-id remove-ordinal-suffix url-fix verity-card-number phone-number bill number-to-words get-bank-name-by-card-number extract-card-number get-place-by-iran-national-id half-space legal-id words-to-number sheba time-diff
 
 check: clippy lint
 
@@ -84,11 +84,6 @@ verity-card-number:
 	cargo build --no-default-features --features=verity-card-number
 	@ ls -sh target/debug/*.rlib
 	
-time-ago:
-	@ echo ""
-	cargo build --no-default-features --features=time-ago
-	@ ls -sh target/debug/*.rlib
-
 number-plate:
 	@ echo ""
 	cargo build --no-default-features --features=number-plate
@@ -146,8 +141,7 @@ sheba:
 	cargo build --no-default-features --features=sheba
 	@ ls -sh target/debug/*.rlib
 
-remaining-time:
+time-diff:
 	@ echo ""
-	cargo build --no-default-features --features=remaining-time
+	cargo build --no-default-features --features=time-diff
 	@ ls -sh target/debug/*.rlib
-

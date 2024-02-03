@@ -14,13 +14,12 @@
     feature = "number-to-words",
     feature = "get-bank-name-by-card-number",
     feature = "extract-card-number",
-    feature = "time-ago",
     feature = "get-place-by-iran-national-id",
     feature = "half-space",
     feature = "legal-id",
     feature = "words-to-number",
     feature = "sheba",
-    feature = "remaining-time",
+    feature = "time-diff",
 )))]
 compile_error!("No available Cargo feature is included");
 
@@ -72,8 +71,8 @@ pub mod get_bank_name_by_card_number;
 #[cfg(feature = "extract-card-number")]
 pub mod extract_card_number;
 
-#[cfg(feature = "time-ago")]
-pub mod time_ago;
+#[cfg(feature = "time-diff")]
+pub mod time_diff;
 
 #[cfg(feature = "get-place-by-iran-national-id")]
 pub mod get_place_by_iran_national_id;
@@ -89,6 +88,3 @@ pub mod words_to_number;
 
 #[cfg(feature = "sheba")]
 pub mod sheba;
-
-#[cfg(feature = "remaining-time")]
-pub mod remaining_time;

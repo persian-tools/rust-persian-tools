@@ -27,7 +27,7 @@ Rust🦀 implementation of [Persian-Tools](https://github.com/persian-tools/pers
 - phone_number
 - remove_ordinal_suffix
 - sheba
-- time_ago
+- time_diff
 - url_fix
 - verity_card_number
 - words_to_number
