@@ -11,4 +11,12 @@ impl ExtractedCardNumber {
             pure: pure.into(),
         }
     }
+
+    pub fn get_base(&self) -> &str {
+        &self.base
+    }
+
+    pub fn get_pure(&self) -> &str {
+        &self.base
+    }
 }

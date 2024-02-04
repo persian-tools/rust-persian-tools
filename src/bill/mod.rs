@@ -304,6 +304,22 @@ impl PaymentID {
             checksum2,
         })
     }
+
+    pub fn get_amount(&self) -> u64 {
+        self.amount
+    }
+    pub fn get_year(&self) -> u8 {
+        self.year
+    }
+    pub fn get_period(&self) -> u8 {
+        self.period
+    }
+    pub fn get_checksum1(&self) -> u8 {
+        self.checksum1
+    }
+    pub fn get_checksum2(&self) -> u8 {
+        self.checksum2
+    }
 }
 
 /// Container for Both Bill and Payment IDs  \

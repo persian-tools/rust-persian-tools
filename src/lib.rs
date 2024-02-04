@@ -20,6 +20,7 @@
     feature = "words-to-number",
     feature = "sheba",
     feature = "time-diff",
+    feature = "number-plate",
 )))]
 compile_error!("No available Cargo feature is included");
 
