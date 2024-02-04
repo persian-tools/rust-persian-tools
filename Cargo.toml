@@ -43,13 +43,12 @@ full = [
     "number-to-words",
     "get-bank-name-by-card-number",
     "extract-card-number",
-    "time-ago",
+    "time-diff",
     "get-place-by-iran-national-id",
     "half-space",
     "legal-id",
     "words-to-number",
     "sheba",
-    "remaining-time",
 ] # For now, by default we enable all features:
 
 
@@ -71,13 +70,12 @@ bill = ["dep:num", "dep:num-derive", "dep:num-traits", "dep:thiserror"]
 number-to-words = ["dep:thiserror", "commas"]
 get-bank-name-by-card-number = ["dep:thiserror"]
 extract-card-number = []
-time-ago = ["dep:thiserror", "dep:chrono"]
+time-diff = ["dep:thiserror", "dep:chrono"]
 get-place-by-iran-national-id = ["dep:thiserror"]
 half-space = []
 legal-id = ["dep:thiserror"]
 words-to-number = ["dep:thiserror", "commas", "digits", "remove-ordinal-suffix"]
 sheba = ["dep:thiserror"]
-remaining-time = ["time-ago"]
 
 [package.metadata.docs.rs]
 all-features = true
