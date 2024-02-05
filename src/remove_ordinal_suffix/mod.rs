@@ -1,12 +1,13 @@
 ///  Remove Ordinal suffix to numbers <br>
-///  Example: <br>
+///  # Example:
 ///  --- input: چهل و سوم
+/// ```
+/// use rust_persian_tools::remove_ordinal_suffix::remove_ordinal_suffix;
+/// assert_eq!(remove_ordinal_suffix("چهل و سوم"), "چهل و سه");
+/// ```
 ///  --- output: چهل و سه <br>
-pub fn remove_ordinal_suffix<S>(word: S) -> String
-where
-    S: Into<String>,
-{
-    let mut word: String = word.into();
+pub fn remove_ordinal_suffix(word: impl AsRef<str>) -> String {
+    let mut word: String = word.as_ref().to_string(); //allocate
 
     if word.ends_with("مین") {
         word = word[0..word.len() - ("مین".len())].to_string()
