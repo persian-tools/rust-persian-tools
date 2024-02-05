@@ -1,4 +1,4 @@
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct PlaceByNationalId {
     city: &'static str,
     province: &'static str,

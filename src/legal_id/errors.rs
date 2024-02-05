@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-#[derive(Error, Debug, PartialEq, Eq)]
+#[derive(Error, Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub enum VerifyLegalIdError {
     #[error("invalid len legal id should be 11 chars")]
     InvalidLength,

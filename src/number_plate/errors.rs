@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-#[derive(Error, Debug, PartialEq, Eq)]
+#[derive(Error, Debug, PartialEq, Eq, Clone, Hash)]
 pub enum PlateNumberError {
     #[error("plate numbers must be 7 or 8 digits long")]
     InvalidPlateDigitLength,

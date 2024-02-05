@@ -1,7 +1,6 @@
 use std::string::FromUtf8Error;
 use urlencoding::decode;
 
-pub enum UrlFixError {}
 
 /// description Used for fix Persian characters in URL<br>
 /// separator: space by default

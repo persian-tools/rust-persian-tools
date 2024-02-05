@@ -4,7 +4,7 @@ use thiserror::Error;
 
 pub static PREFIXES: [&str; 4] = ["+98", "98", "0098", "0"];
 
-#[derive(Error, Debug)]
+#[derive(Error, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum PhoneNumberError {
     #[error("This prefix is not a valid phone number (prefix : `{0}`)")]
     InvalidPrefix(String),

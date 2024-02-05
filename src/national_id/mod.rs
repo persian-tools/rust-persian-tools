@@ -64,7 +64,7 @@ use std::num::ParseIntError;
 pub mod serde;
 
 /// Possible errors during validation of Iranian National Number.
-#[derive(Debug, PartialEq, thiserror::Error)]
+#[derive(Debug, PartialEq, Eq, thiserror::Error)]
 pub enum NationalIdError {
     /// If input length is invalid.
     #[error("Invalid length {0} for National Number")]

@@ -105,7 +105,7 @@ pub(super) fn get_bank_info(s: u32) -> Option<ShebaResult> {
     })
 }
 
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct ShebaResult {
     pub(super) name: &'static str,
     pub(super) code: &'static str,
