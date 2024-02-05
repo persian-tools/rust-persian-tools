@@ -1,10 +1,15 @@
 use crate::persian_chars::to_persian_chars;
 
 /// Returns the capital name of province you enter
-pub fn find_capital_by_province(input: impl AsRef<str>) -> Option<String> {
+/// # Example:
+/// ```
+/// use rust_persian_tools::find_capital_by_province::find_capital_by_province;
+/// assert_eq!(find_capital_by_province("خراسان رضوي"), Some("مشهد"));
+/// ```
+pub fn find_capital_by_province(input: impl AsRef<str>) -> Option<&'static str> {
     let input = input.as_ref();
 
-    let r = match to_persian_chars(input).as_str() {
+    Some(match to_persian_chars(input).as_str() {
         "آذربایجان شرقی" => "تبریز",
         "آذربایجان غربی" => "ارومیه",
         "اردبیل" => "اردبیل",
@@ -37,8 +42,7 @@ pub fn find_capital_by_province(input: impl AsRef<str>) -> Option<String> {
         "همدان" => "همدان",
         "یزد" => "یزد",
         _ => return None,
-    };
-    Some(r.to_string())
+    })
 }
 
 #[cfg(test)]
@@ -52,19 +56,13 @@ mod tests {
 
     #[test]
     fn find_capital_by_province_normal() {
-        assert_eq!(find_capital_by_province("تهران"), Some("تهران".to_string()));
-        assert_eq!(find_capital_by_province("مرکزی"), Some("اراک".to_string()));
-        assert_eq!(
-            find_capital_by_province("خراسان رضوی"),
-            Some("مشهد".to_string())
-        );
+        assert_eq!(find_capital_by_province("تهران"), Some("تهران"));
+        assert_eq!(find_capital_by_province("مرکزی"), Some("اراک"));
+        assert_eq!(find_capital_by_province("خراسان رضوی"), Some("مشهد"));
     }
 
     #[test]
     fn find_capital_by_province_arabic_char() {
-        assert_eq!(
-            find_capital_by_province("خراسان رضوي"),
-            Some("مشهد".to_string())
-        );
+        assert_eq!(find_capital_by_province("خراسان رضوي"), Some("مشهد"));
     }
 }
