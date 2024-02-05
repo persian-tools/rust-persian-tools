@@ -64,7 +64,7 @@ pub fn add_commas_mut(str_mut: &mut String) {
     let mut i = 0;
     while i < end {
         if (end - i) % 3 == 0 && i != 0 {
-            let c = str_mut.chars().nth(i).unwrap();
+            let c = str_mut.chars().nth(i).unwrap(); // TODO is this safe?
             if c != ',' {
                 str_mut.insert(i, ',');
             }

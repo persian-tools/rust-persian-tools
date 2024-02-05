@@ -27,7 +27,7 @@ pub fn get_plate_info(plate: impl AsRef<str>) -> Result<Plate, PlateNumberError>
 }
 
 fn get_car_info(numbers: String, char: String) -> Result<Plate, PlateNumberError> {
-    let province_code: u32 = numbers[5..7].parse().unwrap();
+    let province_code: u32 = numbers[5..7].parse().unwrap(); // TODO is this safe?
     let plate_type = PlateTypes::Car;
     let template = format!(
         "{}{}{}ایران{}",
@@ -68,7 +68,7 @@ fn get_car_info(numbers: String, char: String) -> Result<Plate, PlateNumberError
 }
 
 fn get_motorcycle_info(numbers: String) -> Result<Plate, PlateNumberError> {
-    let province_code: u32 = numbers[0..3].parse().unwrap();
+    let province_code: u32 = numbers[0..3].parse().unwrap(); // TODO is this safe?
     let plate_type = PlateTypes::Motorcycle;
     let template = format!("{}-{}", &numbers[0..3], &numbers[3..]);
 

@@ -36,13 +36,13 @@ pub fn add_half_space(input: &str) -> String {
 
     // these section fixes the words that are started with می | نمی |‌بی
     if result.starts_with("می") {
-        let (_, temp) = result.split_once(' ').unwrap();
+        let (_, temp) = result.split_once(' ').unwrap(); // TODO remove unwrap
         return format!("{}{}", "می\u{200c}", temp);
     } else if result.starts_with("نمی") {
-        let (_, temp) = result.split_once(' ').unwrap();
+        let (_, temp) = result.split_once(' ').unwrap(); // TODO remove unwrap
         return format!("{}{}", "نمی\u{200c}", temp);
     } else if result.starts_with("‌بی‌") {
-        let (_, temp) = result.split_once(' ').unwrap();
+        let (_, temp) = result.split_once(' ').unwrap(); // TODO remove unwrap
         return format!("{}{}", "‌بی‌\u{200c}", temp);
     }
 
@@ -64,6 +64,7 @@ mod tests {
             add_half_space("ای دوست سلام من به تو. نمی خواهمت درخت های چنار هاله صمیمی من"),
             "ای دوست سلام من به تو. نمی‌خواهمت درخت‌های چنار هاله صمیمی من".to_string()
         );
+        // add_half_space("نمیخواهی"); // TODO this will panic
     }
 
     #[test]
