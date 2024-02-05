@@ -64,7 +64,7 @@ use std::num::ParseIntError;
 pub mod serde;
 
 /// Possible errors during validation of Iranian National Number.
-#[derive(Debug, PartialEq, thiserror::Error)]
+#[derive(Debug, PartialEq, Eq, thiserror::Error)]
 pub enum NationalIdError {
     /// If input length is invalid.
     #[error("Invalid length {0} for National Number")]
@@ -118,7 +118,7 @@ pub fn verify_iranian_national_id(code: impl AsRef<str>) -> Result<(), NationalI
     }
 
     let mut sum = (0usize..9).fold(0, |sum, i| {
-        sum + code_str[i..i + 1].parse::<usize>().unwrap() * (10 - i)
+        sum + code_str[i..i + 1].parse::<usize>().unwrap() * (10 - i) //TODO is this safe
     });
     sum %= 11;
     let last_number = (code_u64 % 10) as usize;

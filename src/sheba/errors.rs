@@ -2,7 +2,7 @@ use std::num::ParseIntError;
 
 use thiserror::Error;
 
-#[derive(Error, Debug, PartialEq, Eq)]
+#[derive(Error, Clone, Copy, Debug, Hash, PartialEq, Eq)]
 pub enum ShebaValidationError {
     #[error("empty")]
     Empty,

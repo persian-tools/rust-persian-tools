@@ -64,7 +64,7 @@ use std::convert::From;
 use std::str::FromStr;
 use std::string::ToString;
 
-#[derive(Debug, Clone, PartialEq, thiserror::Error)]
+#[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, thiserror::Error)]
 pub enum BillError {
     #[error("Barcode length must be 26 chars")]
     InvalidBarcodeLength,
@@ -95,7 +95,7 @@ pub enum BillError {
 /// use rust_persian_tools::bill::BillType;
 /// assert_eq!(FromPrimitive::from_u8(2), Some(BillType::Electricity));
 /// ```
-#[derive(FromPrimitive, Clone, Copy, PartialEq, Debug)]
+#[derive(FromPrimitive, Clone, Copy, PartialEq, Eq, Debug, Hash)]
 pub enum BillType {
     /// آب  
     /// Service Type Code: 1
@@ -123,7 +123,7 @@ pub enum BillType {
     DrivingOffence = 8,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Hash)]
 pub enum CurrencyType {
     Rials,
     Tomans,
@@ -136,7 +136,7 @@ pub enum CurrencyType {
 ///
 /// Checksum is calculated via [ISSN Modulo 11 check digit](https://www.activebarcode.com/codes/checkdigit/modulo11)
 ///
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct BillID {
     /// Maximum 8-digit Company Internal File ID
     pub file_id: String,
@@ -216,7 +216,7 @@ impl ToString for BillID {
 /// Checksums are calculated via [ISSN Modulo 11 check digit](https://www.activebarcode.com/codes/checkdigit/modulo11)  \
 /// Checksum1 is the checksum for Payment ID itself and only checks digits in Payment ID  \
 /// Checksum2 is the checksum for Bill ID and Payment ID concatenated together and checks validity of relation between two IDs
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub struct PaymentID {
     /// Amount in scale 1000:1 (1000 will be 1)
     amount: u64,
@@ -324,7 +324,7 @@ impl PaymentID {
 
 /// Container for Both Bill and Payment IDs  \
 /// You must use this type to extract all informations about the bill  
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Bill {
     pub bill_id: BillID,
     pub payment_id: PaymentID,

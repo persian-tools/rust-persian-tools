@@ -12,13 +12,14 @@ use self::{
     errors::WordsToNumberError,
 };
 
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub enum Language {
     Arabic,
     Persian,
     English,
 }
 
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct Options {
     pub digits: Language,
     pub add_commas: bool,

@@ -1,8 +1,6 @@
 use std::string::FromUtf8Error;
 use urlencoding::decode;
 
-pub enum UrlFixError {}
-
 /// description Used for fix Persian characters in URL<br>
 /// separator: space by default
 /// # Example:
@@ -22,7 +20,7 @@ where
 
     if let Some(separator) = separator {
         let separator: &str = separator.as_ref();
-        return Ok(url.replace(' ', &separator));
+        return Ok(url.replace(' ', separator));
     }
 
     Ok(url.to_string())

@@ -7,7 +7,7 @@ pub(crate) const DAY: i64 = HOUR * 24;
 pub(crate) const MONTH: i64 = DAY * 30;
 pub(crate) const YEAR: i64 = DAY * 365;
 
-#[derive(Error, Debug)]
+#[derive(Error, Clone, Copy, Debug, Hash, PartialEq, Eq)]
 pub enum TimeAgoError {
     #[error("Wrong datetime format !")]
     InvalidDateTimeFormat,
@@ -23,7 +23,7 @@ pub enum TimeAgoError {
 /// the `long_form()` returns a long and exact desciption about time diffrence\
 /// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
 ///
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct TimeDiff {
     pub years: u32,
     pub months: u8,
