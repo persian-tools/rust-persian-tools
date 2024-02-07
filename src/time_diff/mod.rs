@@ -1,6 +1,8 @@
 use chrono::{DateTime, Local, NaiveDateTime, TimeZone};
 use thiserror::Error;
 
+use crate::digits::{DigitsEn2Ar, DigitsEn2Fa};
+
 pub(crate) const MINUTE: i64 = 60;
 pub(crate) const HOUR: i64 = MINUTE * 60;
 pub(crate) const DAY: i64 = HOUR * 24;
@@ -15,7 +17,30 @@ pub enum TimeAgoError {
     Unknown,
 }
 
-/// The [TimeDiff] stuct has two methods , `short_form()` & `long_form()` \
+pub enum Timestamp {
+    String(String),
+    Integer(i64),
+}
+
+impl From<String> for Timestamp {
+    fn from(datetime_str: String) -> Self {
+        Timestamp::String(datetime_str)
+    }
+}
+
+impl From<&str> for Timestamp {
+    fn from(datetime_str: &str) -> Self {
+        Timestamp::String(datetime_str.to_string())
+    }
+}
+
+impl From<i64> for Timestamp {
+    fn from(timestamp: i64) -> Self {
+        Timestamp::Integer(timestamp)
+    }
+}
+
+/// The [TimeDiff] stuct has two main methods: `short_form()` & `long_form()` \
 /// the `short_form()` returns a short desciption about time diffrence\
 /// - 5 دقیقه قبل
 /// - حدود 2 هفته بعد
@@ -23,6 +48,11 @@ pub enum TimeAgoError {
 /// the `long_form()` returns a long and exact desciption about time diffrence\
 /// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
 ///
+/// also there are more methods to return long_from and short with arabic or persian digits
+/// - short_form_fa_digits()
+/// - short_form_ar_digits()
+/// - long_form_fa_digits()
+/// - long_form_ar_digits()
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct TimeDiff {
     pub years: u32,
@@ -31,14 +61,14 @@ pub struct TimeDiff {
     pub hours: u8,
     pub minutes: u8,
     pub seconds: u8,
-    pub is_remaining_time: bool,
+    pub is_future: bool,
 }
 
 impl TimeDiff {
     pub fn long_form(&self) -> String {
         let mut periods: Vec<String> = Vec::new();
 
-        let pre_or_next = pre_or_next(self.is_remaining_time);
+        let pre_or_next = self.pre_or_next();
 
         if self.years > 0 {
             periods.push(format!("{} سال", self.years))
@@ -63,7 +93,7 @@ impl TimeDiff {
     }
 
     pub fn short_form(&self) -> String {
-        let pre_or_next = pre_or_next(self.is_remaining_time);
+        let pre_or_next = self.pre_or_next();
 
         if self.years != 0 {
             format!("{} {} {} {}", "حدود", &self.years, "سال", pre_or_next)
@@ -83,13 +113,29 @@ impl TimeDiff {
             "اکنون".to_string()
         }
     }
-}
 
-fn pre_or_next(is_remaining_time: bool) -> String {
-    if is_remaining_time {
-        "بعد".to_owned()
-    } else {
-        "قبل".to_owned()
+    pub fn short_form_fa_digits(&self) -> String {
+        self.short_form().digits_en_to_fa()
+    }
+
+    pub fn long_form_fa_digits(&self) -> String {
+        self.long_form().digits_en_to_fa()
+    }
+
+    pub fn short_form_ar_digits(&self) -> String {
+        self.short_form().digits_en_to_ar()
+    }
+
+    pub fn long_form_ar_digits(&self) -> String {
+        self.long_form().digits_en_to_ar()
+    }
+
+    pub fn pre_or_next(&self) -> String {
+        if self.is_future {
+            "بعد".to_owned()
+        } else {
+            "قبل".to_owned()
+        }
     }
 }
 
@@ -180,8 +226,10 @@ pub fn get_current_timestamp() -> i64 {
     now.timestamp()
 }
 
+/// datetime argument can be a integer as timestamp or a string as datetime
 /// Returns a [TimeDiff] stuct based on how much time is remaining or passed based on the givin datetime\
 /// The [TimeDiff] stuct has two methods , `short_form()` & `long_form()` \
+///
 /// the `short_form()` returns a short desciption about time diffrence\
 /// - 5 دقیقه قبل
 /// - حدود 2 هفته بعد
@@ -189,8 +237,10 @@ pub fn get_current_timestamp() -> i64 {
 /// the `long_form()` returns a long and exact desciption about time diffrence\
 /// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
 ///
+/// also there are some other methords like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
+///
 /// # Warning
-/// This function is desgined to only works for these date time formats :
+/// This function is desgined to only works for these date time formats if you send datetime argument as datetime string :
 ///
 /// - `%Y-%m-%d %H:%M:%S`: Sortable format
 /// - `%Y/%m/%d %H:%M:%S`: Sortable format
@@ -203,7 +253,7 @@ pub fn get_current_timestamp() -> i64 {
 /// # Examples
 ///
 /// ```
-/// use rust_persian_tools::time_diff::{TimeDiff , time_diff};
+/// use rust_persian_tools::time_diff::{TimeDiff , time_diff_now};
 /// use chrono::{Duration,Local};
 ///
 /// let current_time = Local::now();
@@ -214,7 +264,7 @@ pub fn get_current_timestamp() -> i64 {
 /// + Duration::seconds(37);
 /// let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 /// assert_eq!(
-/// time_diff(formatted_time).unwrap(),
+/// time_diff_now(formatted_time).unwrap(),
 ///   TimeDiff {
 ///       years: 6,
 ///       months: 1,
@@ -222,7 +272,7 @@ pub fn get_current_timestamp() -> i64 {
 ///       hours: 7,
 ///       minutes: 13,
 ///       seconds: 37,
-///       is_remaining_time: true,
+///       is_future: true,
 ///   }
 /// );
 ///
@@ -230,17 +280,109 @@ pub fn get_current_timestamp() -> i64 {
 /// let current_time = Local::now();
 /// let ten_minutes_ago = current_time - Duration::minutes(10);
 /// let formatted_time = ten_minutes_ago.format("%Y-%m-%d %H:%M:%S").to_string(); // create datetime string from 10 minutes ago
-/// assert!(time_diff(formatted_time).is_ok_and(|datetime| datetime.short_form() == "10 دقیقه قبل"));
+/// assert!(time_diff_now(formatted_time).is_ok_and(|datetime| datetime.short_form() == "10 دقیقه قبل"));
 /// ```
-pub fn time_diff(datetime: impl AsRef<str>) -> Result<TimeDiff, TimeAgoError> {
-    let datetime = datetime.as_ref();
-
+pub fn time_diff_now(datetime: impl Into<Timestamp>) -> Result<TimeDiff, TimeAgoError> {
     let ts_now = get_current_timestamp();
-    let ts = convert_to_timestamp(datetime)?;
+    let ts = match datetime.into() {
+        Timestamp::String(datetime_str) => convert_to_timestamp(datetime_str)?,
+        Timestamp::Integer(timestamp) => timestamp,
+    };
 
     let timestamp_diff = ts - ts_now;
 
-    let is_remaining_time = timestamp_diff > 0;
+    Ok(get_time_diff(timestamp_diff))
+}
+
+/// start & end arguments can be a integer as timestamp or a string as datetime
+/// Returns a [TimeDiff] stuct based on how much time is remaining or passed based on the diffrence between two datetime\
+/// The [TimeDiff] stuct has two main methods , `short_form()` & `long_form()` \
+/// the `short_form()` returns a short desciption about time diffrence\
+/// - 5 دقیقه قبل
+/// - حدود 2 هفته بعد
+///
+/// the `long_form()` returns a long and exact desciption about time diffrence\
+/// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
+///
+/// also there are some other methords like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
+///
+/// # Warning
+/// This function is desgined to only works for these datetime formats if you send start or end as datetime string:
+///
+/// - `%Y-%m-%d %H:%M:%S`: Sortable format
+/// - `%Y/%m/%d %H:%M:%S`: Sortable format
+/// - `%Y-%m-%dT%H:%M:%S%:z`: ISO 8601 with timezone offset
+/// - `%Y-%m-%dT%H:%M:%S%.3f%:z`: ISO 8601 with milliseconds and timezone offset
+/// - `%a, %d %b %Y %H:%M:%S %z`: RFC 2822 Format
+///
+///  timezone is set with the current timezone of the OS.
+///
+/// # Examples
+///
+/// ```
+/// use rust_persian_tools::time_diff::{TimeDiff , time_diff_between};
+/// use chrono::{Duration,Local};
+///
+/// let current_time = Local::now();
+/// let start = current_time
+///     + Duration::weeks(320)
+///     + Duration::hours(7)
+///     + Duration::minutes(13)
+///     + Duration::seconds(37);
+/// let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+/// let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
+/// assert_eq!(
+///     time_diff_between(formatted_time, end).unwrap(),
+///     TimeDiff {
+///         years: 3,
+///         months: 3,
+///         days: 5,
+///         hours: 3,
+///         minutes: 13,
+///         seconds: 37,
+///         is_future: false,
+///     }
+/// );
+///
+/// // Example with long_form() with persian digits
+//  let current_time = Local::now();
+//  let start = current_time
+//     + Duration::weeks(320)
+//     + Duration::hours(7)
+//     + Duration::minutes(13)
+//     + Duration::seconds(37);
+//
+// let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+//
+// let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
+// assert_eq!(
+//     time_diff_between(formatted_time, end)
+//         .unwrap()
+//         .long_form_fa_digits(),
+//     "۳ سال و ۳ ماه و ۵ روز و ۳ ساعت و ۱۳ دقیقه و ۳۷ ثانیه قبل"
+// );
+/// ```
+pub fn time_diff_between(
+    start: impl Into<Timestamp>,
+    end: impl Into<Timestamp>,
+) -> Result<TimeDiff, TimeAgoError> {
+    let ts_start = match start.into() {
+        Timestamp::String(datetime_str) => convert_to_timestamp(datetime_str)?,
+        Timestamp::Integer(timestamp) => timestamp,
+    };
+
+    let ts_end = match end.into() {
+        Timestamp::String(datetime_str) => convert_to_timestamp(datetime_str)?,
+        Timestamp::Integer(timestamp) => timestamp,
+    };
+
+    let timestamp_diff = ts_end - ts_start;
+
+    Ok(get_time_diff(timestamp_diff))
+}
+
+fn get_time_diff(timestamp_diff: i64) -> TimeDiff {
+    let is_future = timestamp_diff > 0;
 
     let mut timestamp_diff = timestamp_diff.abs();
 
@@ -261,15 +403,15 @@ pub fn time_diff(datetime: impl AsRef<str>) -> Result<TimeDiff, TimeAgoError> {
 
     let seconds: u8 = timestamp_diff as u8;
 
-    Ok(TimeDiff {
+    TimeDiff {
         years,
         months,
         days,
         hours,
         minutes,
         seconds,
-        is_remaining_time,
-    })
+        is_future,
+    }
 }
 
 #[cfg(test)]
@@ -283,7 +425,9 @@ mod tests {
         // let ten_minutes_ago = current_time - Duration::minutes(10);
         let formatted_time = current_time.format("%Y-%m-%dT%H:%M:%S%:z").to_string();
 
-        assert!(time_diff(&formatted_time).is_ok_and(|datetime| datetime.short_form() == "اکنون"));
+        assert!(
+            time_diff_now(formatted_time).is_ok_and(|datetime| datetime.short_form() == "اکنون")
+        );
     }
 
     #[test]
@@ -293,8 +437,54 @@ mod tests {
         let formatted_time = ten_minutes_ago.format("%Y-%m-%d %H:%M:%S").to_string();
 
         // dbg!(time_diff(&formatted_time))
-        assert!(time_diff(&formatted_time)
+        assert!(time_diff_now(formatted_time)
             .is_ok_and(|datetime| datetime.short_form() == "10 دقیقه قبل"));
+    }
+
+    #[test]
+    fn test_time_diff_between_to_datetime() {
+        let current_time = Local::now();
+        let start = current_time
+            + Duration::weeks(320)
+            + Duration::hours(7)
+            + Duration::minutes(13)
+            + Duration::seconds(37);
+
+        let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+
+        let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
+        assert_eq!(
+            time_diff_between(formatted_time, end).unwrap(),
+            TimeDiff {
+                years: 3,
+                months: 3,
+                days: 5,
+                hours: 3,
+                minutes: 13,
+                seconds: 37,
+                is_future: false,
+            }
+        );
+    }
+
+    #[test]
+    fn test_time_diff_between_to_datetime_with_long_format_persian_digits() {
+        let current_time = Local::now();
+        let start = current_time
+            + Duration::weeks(320)
+            + Duration::hours(7)
+            + Duration::minutes(13)
+            + Duration::seconds(37);
+
+        let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+
+        let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
+        assert_eq!(
+            time_diff_between(formatted_time, end)
+                .unwrap()
+                .long_form_fa_digits(),
+            "۳ سال و ۳ ماه و ۵ روز و ۳ ساعت و ۱۳ دقیقه و ۳۷ ثانیه قبل"
+        );
     }
 
     #[test]
@@ -305,7 +495,7 @@ mod tests {
             .format("%a, %d %b %Y %H:%M:%S %z")
             .to_string();
 
-        assert!(time_diff(&formatted_time)
+        assert!(time_diff_now(formatted_time)
             .is_ok_and(|datetime| datetime.short_form() == "حدود 2 هفته بعد"));
     }
 
@@ -317,7 +507,7 @@ mod tests {
             .format("%Y-%m-%dT%H:%M:%S%.3f%:z")
             .to_string();
 
-        assert!(time_diff(&formatted_time)
+        assert!(time_diff_now(formatted_time)
             .is_ok_and(|datetime| datetime.short_form() == "حدود 3 ماه بعد"));
     }
 
@@ -332,7 +522,7 @@ mod tests {
         let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 
         assert_eq!(
-            time_diff(formatted_time).unwrap(),
+            time_diff_now(formatted_time).unwrap(),
             TimeDiff {
                 years: 6,
                 months: 1,
@@ -340,7 +530,7 @@ mod tests {
                 hours: 7,
                 minutes: 13,
                 seconds: 37,
-                is_remaining_time: true,
+                is_future: true,
             }
         );
     }
@@ -353,7 +543,7 @@ mod tests {
         let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 
         assert_eq!(
-            time_diff(formatted_time).unwrap().long_form(),
+            time_diff_now(formatted_time).unwrap().long_form(),
             String::from("6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد")
         );
     }
