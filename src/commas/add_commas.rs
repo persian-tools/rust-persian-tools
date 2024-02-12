@@ -19,25 +19,27 @@
 /// }
 /// ```
 pub fn add_commas(number_str: impl AsRef<str>) -> String {
-    let number_str = number_str.as_ref().replace(',', ""); // Remove existing commas
+    let number_str = number_str.as_ref();
+    let comma_less = |c: &char| c != &',';
 
-    let dot_index = number_str.find('.').unwrap_or(number_str.len());
+    let mut end = number_str
+        .chars()
+        .filter(comma_less)
+        .position(|c| c == '.')
+        .unwrap_or_else(|| number_str.chars().filter(comma_less).count());
 
-    let result = number_str[..dot_index]
-        .chars()
-        .rev()
-        .enumerate()
-        .fold(String::new(), |mut acc, (i, digit)| {
-            if i > 0 && i % 3 == 0 {
-                acc.push(',');
-            }
-            acc.push(digit);
-            acc
-        })
-        .chars()
-        .rev()
-        .collect::<String>()
-        + &number_str[dot_index..];
+    let mut result = String::new();
+    for (i, ch) in number_str.chars().filter(comma_less).enumerate() {
+        if end == i {
+            end += number_str.chars().filter(|c| c == &',').count();
+            result.push_str(&number_str[end..number_str.chars().count()]);
+            break;
+        }
+        if (end - i) % 3 == 0 && i != 0 {
+            result.push(',')
+        }
+        result.push(ch);
+    }
 
     result
 }
@@ -52,21 +54,20 @@ pub fn add_commas(number_str: impl AsRef<str>) -> String {
 /// add_commas_mut(&mut input);
 /// assert_eq!(input, "30,000,000");
 /// ```
-pub fn add_commas_mut(str_mut: &mut String) {
+pub fn add_commas_mut(number_str: &mut String) {
     let comma_less = |c: &char| c != &',';
-
-    let mut end = str_mut
+    let mut end = number_str
         .chars()
         .filter(comma_less)
         .position(|c| c == '.')
-        .unwrap_or_else(|| str_mut.chars().filter(comma_less).count());
+        .unwrap_or_else(|| number_str.chars().filter(comma_less).count());
 
     let mut i = 0;
     while i < end {
         if (end - i) % 3 == 0 && i != 0 {
-            let c = str_mut.chars().nth(i).unwrap(); // TODO is this safe?
+            let c = number_str.chars().nth(i).unwrap(); // this is safe because i can be at maximum of string len
             if c != ',' {
-                str_mut.insert(i, ',');
+                number_str.insert(i, ',');
             }
             end += 1;
             i += 1;
