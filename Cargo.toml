@@ -4,7 +4,6 @@ version = "1.0.0"
 edition = "2021"
 description = "Official Rust implementation of Persian Tools"
 license = "MIT"
-license-file = "LICENSE"
 readme = "README.md"
 # documentation = "https://docs.rs/rust-persian-tools" # if not set docs.rs will generate one and put it in place 
 homepage = "https://crates.io/crates/rust-persian-tools"
