@@ -48,7 +48,7 @@ fn calculate(tokens: Vec<String>) -> Result<i64, WordsToNumberError> {
         } else if let Some(value) = get_magnitute_number(&token) {
             // if token is a magnitute valid number
             if sum == 0 {
-                sum = *value;
+                sum = value;
             } else {
                 sum *= value;
             }
