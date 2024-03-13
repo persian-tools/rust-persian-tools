@@ -105,6 +105,7 @@ pub(super) fn get_bank_info(s: u32) -> Option<ShebaResult> {
     })
 }
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct ShebaResult {
     pub(super) name: &'static str,

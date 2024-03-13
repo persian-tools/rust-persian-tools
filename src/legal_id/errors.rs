@@ -1,5 +1,6 @@
 use thiserror::Error;
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub enum VerifyLegalIdError {
     #[error("invalid len legal id should be 11 chars")]

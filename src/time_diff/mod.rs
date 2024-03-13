@@ -9,6 +9,7 @@ pub(crate) const DAY: i64 = HOUR * 24;
 pub(crate) const MONTH: i64 = DAY * 30;
 pub(crate) const YEAR: i64 = DAY * 365;
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Clone, Copy, Debug, Hash, PartialEq, Eq)]
 pub enum TimeAgoError {
     #[error("Wrong datetime format !")]
@@ -17,6 +18,8 @@ pub enum TimeAgoError {
     Unknown,
 }
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Clone, Debug, Hash, PartialEq, Eq)]
 pub enum Timestamp {
     String(String),
     Integer(i64),
@@ -53,6 +56,7 @@ impl From<i64> for Timestamp {
 /// - short_form_ar_digits()
 /// - long_form_fa_digits()
 /// - long_form_ar_digits()
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct TimeDiff {
     pub years: u32,

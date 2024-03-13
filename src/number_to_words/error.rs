@@ -1,5 +1,6 @@
 use thiserror::Error;
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum NumberToWordsError {
     #[error("number_to_words_str input is empty")]

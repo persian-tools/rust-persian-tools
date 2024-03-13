@@ -12,6 +12,7 @@ use self::{
     errors::WordsToNumberError,
 };
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub enum Language {
     Arabic,
@@ -19,6 +20,7 @@ pub enum Language {
     English,
 }
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct Options {
     pub digits: Language,
