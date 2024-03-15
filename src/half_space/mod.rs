@@ -1,4 +1,12 @@
 /// removes half space & soft hyphon from text
+/// Example:
+/// ```
+/// use rust_persian_tools::half_space::remove_half_space;
+/// assert_eq!(
+///     remove_half_space("نمی‌خواهی درخت‌ها را ببینیم؟"),
+///     "نمی خواهی درخت ها را ببینیم؟".to_string()
+/// );
+/// ```
 pub fn remove_half_space(input: impl AsRef<str>) -> String {
     let input = input.as_ref();
 
@@ -8,9 +16,38 @@ pub fn remove_half_space(input: impl AsRef<str>) -> String {
         .map(|ch| if ch == '\u{200C}' { ' ' } else { ch })
         .collect()
 }
+pub trait RemoveHalfSpace {
+    fn remove_half_space(&self) -> String;
+}
 
-// add half space to input based on most useful
-pub fn add_half_space(input: &str) -> String {
+impl RemoveHalfSpace for String {
+    fn remove_half_space(&self) -> String {
+        remove_half_space(self)
+    }
+}
+impl RemoveHalfSpace for str {
+    fn remove_half_space(&self) -> String {
+        remove_half_space(self)
+    }
+}
+use std::borrow::Cow;
+impl RemoveHalfSpace for Cow<'_, str> {
+    fn remove_half_space(&self) -> String {
+        remove_half_space(self)
+    }
+}
+
+/// add half space to input based on most useful
+/// Example:
+/// ```
+/// use rust_persian_tools::half_space::add_half_space;
+/// assert_eq!(
+///     add_half_space("نمی خواهی درخت ها را ببینیم؟"),
+///     "نمی‌خواهی درخت‌ها را ببینیم؟".to_string()
+/// );
+/// ```
+pub fn add_half_space(input: impl AsRef<str>) -> String {
+    let input = input.as_ref();
     let result = remove_half_space(input.trim())
         .replace("\u{0020}می\u{0020}", "\u{0020}می\u{200c}")
         .replace("\u{0020}نمی\u{0020}", "\u{0020}نمی\u{200c}")
@@ -50,6 +87,25 @@ pub fn add_half_space(input: &str) -> String {
     }
 
     result
+}
+
+pub trait AddHalfSpace {
+    fn add_half_space(&self) -> String;
+}
+impl AddHalfSpace for String {
+    fn add_half_space(&self) -> String {
+        add_half_space(self)
+    }
+}
+impl AddHalfSpace for str {
+    fn add_half_space(&self) -> String {
+        add_half_space(self)
+    }
+}
+impl AddHalfSpace for Cow<'_, str> {
+    fn add_half_space(&self) -> String {
+        add_half_space(self)
+    }
 }
 
 #[cfg(test)]

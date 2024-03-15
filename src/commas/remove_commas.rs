@@ -29,6 +29,7 @@ pub fn remove_commas_mut(str: &mut String) {
     str.retain(|c| c != ',')
 }
 
+use std::borrow::Cow;
 pub trait RemoveCommas {
     fn remove_commas(&self) -> String;
 }
@@ -42,6 +43,27 @@ impl RemoveCommas for String {
 impl RemoveCommas for str {
     fn remove_commas(&self) -> String {
         remove_commas(self)
+    }
+}
+
+impl RemoveCommas for Cow<'_, str> {
+    fn remove_commas(&self) -> String {
+        remove_commas(self)
+    }
+}
+
+pub trait RemoveCommasMut {
+    fn remove_commas_mut(&mut self);
+}
+
+impl RemoveCommasMut for String {
+    fn remove_commas_mut(&mut self) {
+        remove_commas_mut(self)
+    }
+}
+impl RemoveCommasMut for Cow<'_, str> {
+    fn remove_commas_mut(&mut self) {
+        remove_commas_mut(self.to_mut())
     }
 }
 

@@ -30,7 +30,7 @@ Note: These tools are totally offline (no api calls)
 | half_space                    | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/half_space/index.html) | نیم فاصله هارو اوکی میکنه |
 | legal_id                      | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/legal_id/index.html) | شناسه حقوقی رو اعتبار سنجی میکنه |
 | national_id                   | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/national_id/index.html) | کد ملی رو اعتبار سنجی میکنه |
-| number_plate                  | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/number_plate/index.html) | پلاک ماشین |
+| number_plate                  | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/number_plate/index.html) | پلاک ماشین و موتور |
 | number_to_words               | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/number_to_words/index.html) | عدد رو به حروف تبدیل میکنه |
 | persian_chars                 | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/persian_chars/index.html) | فارسی بودن یک متن رو چک میکنه و میتونه بعضی حروف عربی رو به فارسی تبدیل کنه |
 | phone_number                  | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/phone_number/index.html) | شماره تلفن رو اعتبار سنجی میکنه و اپراتور رو شناسایی میکنه |

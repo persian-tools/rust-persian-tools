@@ -2,6 +2,7 @@ use std::num::ParseIntError;
 
 use thiserror::Error;
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Clone, Copy, Debug, Hash, PartialEq, Eq)]
 pub enum ShebaValidationError {
     #[error("empty")]

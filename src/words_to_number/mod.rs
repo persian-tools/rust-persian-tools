@@ -12,6 +12,7 @@ use self::{
     errors::WordsToNumberError,
 };
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub enum Language {
     Arabic,
@@ -19,6 +20,7 @@ pub enum Language {
     English,
 }
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]
 pub struct Options {
     pub digits: Language,
@@ -48,7 +50,7 @@ fn calculate(tokens: Vec<String>) -> Result<i64, WordsToNumberError> {
         } else if let Some(value) = get_magnitute_number(&token) {
             // if token is a magnitute valid number
             if sum == 0 {
-                sum = *value;
+                sum = value;
             } else {
                 sum *= value;
             }

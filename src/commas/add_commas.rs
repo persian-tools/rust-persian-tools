@@ -85,10 +85,32 @@ impl AddCommas for str {
         add_commas(self)
     }
 }
+use std::borrow::Cow;
+
+impl AddCommas for Cow<'_, str> {
+    fn add_commas(&self) -> String {
+        add_commas(self)
+    }
+}
 
 impl AddCommas for String {
     fn add_commas(&self) -> String {
         add_commas(self)
+    }
+}
+
+pub trait AddCommasMut {
+    fn add_commas_mut(&mut self);
+}
+
+impl AddCommasMut for String {
+    fn add_commas_mut(&mut self) {
+        add_commas_mut(self)
+    }
+}
+impl AddCommasMut for Cow<'_, String> {
+    fn add_commas_mut(&mut self) {
+        add_commas_mut(self.to_mut())
     }
 }
 

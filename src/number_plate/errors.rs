@@ -1,5 +1,6 @@
 use thiserror::Error;
 
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Debug, PartialEq, Eq, Clone, Hash)]
 pub enum PlateNumberError {
     #[error("plate numbers must be 7 or 8 digits long")]
