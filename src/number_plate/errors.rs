@@ -11,4 +11,6 @@ pub enum PlateNumberError {
     InvalidPlateCharacter(String),
     #[error("invalid motorcycle province code {0:?}")]
     MotorcycleProvinceNotFound(String),
+    #[error("invalid car province code {0:?}")]
+    CarProvinceNotFound(String)
 }
