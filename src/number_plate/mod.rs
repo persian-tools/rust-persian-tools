@@ -41,7 +41,7 @@ fn get_car_info(numbers: String, char: String) -> Result<Plate, PlateNumberError
 
     let province = car_dataset().get(&province_code).cloned().map_or_else(
         || {
-            Err(PlateNumberError::MotorcycleProvinceNotFound(
+            Err(PlateNumberError::CarProvinceNotFound(
                 numbers[5..7].to_string(),
             ))
         },
