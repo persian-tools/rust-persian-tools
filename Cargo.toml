@@ -80,4 +80,4 @@ all-features = true
 
 [dev-dependencies]
 # To test `serde` feature expectaions:
-serde_json = "1.0.114"
+serde_json = "1.0.115"
