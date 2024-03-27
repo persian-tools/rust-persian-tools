@@ -20,7 +20,7 @@ thiserror = { version = "1.0.58", optional = true }
 num = { version = "0.4", optional = true }
 num-derive = { version = "0.4", optional = true }
 num-traits = { version = "0.2", optional = true }
-chrono = { version = "0.4.35", optional = true }
+chrono = { version = "0.4.37", optional = true }
 
 # Edit `Makefile` and `src/lib.src` after making changes in this section:
 [features]
