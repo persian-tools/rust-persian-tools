@@ -420,6 +420,7 @@ fn get_time_diff(timestamp_diff: i64) -> TimeDiff {
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
     use chrono::Duration;
 
@@ -437,7 +438,7 @@ mod tests {
     #[test]
     fn test_time_diff_10_min_ago() {
         let current_time = Local::now();
-        let ten_minutes_ago = current_time - Duration::minutes(10);
+        let ten_minutes_ago = current_time - Duration::try_minutes(10).unwrap();
         let formatted_time = ten_minutes_ago.format("%Y-%m-%d %H:%M:%S").to_string();
 
         // dbg!(time_diff(&formatted_time))
@@ -449,12 +450,14 @@ mod tests {
     fn test_time_diff_between_to_datetime() {
         let current_time = Local::now();
         let start = current_time
-            + Duration::weeks(320)
-            + Duration::hours(7)
-            + Duration::minutes(13)
-            + Duration::seconds(37);
+            + Duration::try_weeks(320).unwrap()
+            + Duration::try_hours(7).unwrap()
+            + Duration::try_minutes(13).unwrap()
+            + Duration::try_seconds(37).unwrap();
 
-        let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+        let end =
+            (current_time + Duration::try_weeks(150).unwrap() + Duration::try_hours(4).unwrap())
+                .timestamp();
 
         let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
         assert_eq!(
@@ -475,12 +478,14 @@ mod tests {
     fn test_time_diff_between_to_datetime_with_long_format_persian_digits() {
         let current_time = Local::now();
         let start = current_time
-            + Duration::weeks(320)
-            + Duration::hours(7)
-            + Duration::minutes(13)
-            + Duration::seconds(37);
+            + Duration::try_weeks(320).unwrap()
+            + Duration::try_hours(7).unwrap()
+            + Duration::try_minutes(13).unwrap()
+            + Duration::try_seconds(37).unwrap();
 
-        let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+        let end =
+            (current_time + Duration::try_weeks(150).unwrap() + Duration::try_hours(4).unwrap())
+                .timestamp();
 
         let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
         assert_eq!(
@@ -494,7 +499,7 @@ mod tests {
     #[test]
     fn test_time_diff_next_2_weeks() {
         let current_time = Local::now();
-        let ten_minutes_ago = current_time + Duration::weeks(2);
+        let ten_minutes_ago = current_time + Duration::try_weeks(2).unwrap();
         let formatted_time = ten_minutes_ago
             .format("%a, %d %b %Y %H:%M:%S %z")
             .to_string();
@@ -506,7 +511,7 @@ mod tests {
     #[test]
     fn test_time_diff_next_3_months() {
         let current_time = Local::now();
-        let ten_minutes_ago = current_time + Duration::days(31 * 3);
+        let ten_minutes_ago = current_time + Duration::try_days(31 * 3).unwrap();
         let formatted_time = ten_minutes_ago
             .format("%Y-%m-%dT%H:%M:%S%.3f%:z")
             .to_string();
@@ -519,10 +524,10 @@ mod tests {
     fn test_time_diff_as_struct() {
         let current_time = Local::now();
         let due_date = current_time
-            + Duration::weeks(320)
-            + Duration::hours(7)
-            + Duration::minutes(13)
-            + Duration::seconds(37);
+            + Duration::try_weeks(320).unwrap()
+            + Duration::try_hours(7).unwrap()
+            + Duration::try_minutes(13).unwrap()
+            + Duration::try_seconds(37).unwrap();
         let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 
         assert_eq!(
@@ -542,8 +547,10 @@ mod tests {
     #[test]
     fn test_time_diff_as_long_form() {
         let current_time = Local::now();
-        let due_date =
-            current_time + Duration::weeks(340) + Duration::minutes(12) + Duration::seconds(37);
+        let due_date = current_time
+            + Duration::try_weeks(340).unwrap()
+            + Duration::try_minutes(12).unwrap()
+            + Duration::try_seconds(37).unwrap();
         let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 
         assert_eq!(
