@@ -10,7 +10,7 @@ homepage = "https://crates.io/crates/rust-persian-tools"
 repository = "https://github.com/persian-tools/rust-persian-tools"
 categories = ["localization", "languages", "internationalization", "tools"]
 keywords = ["iran", "persian", "farsi", "tools"]
-include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md", "Contributing.md", "logo.png"]
+include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md", "Contributing.md", "logo.png"] # /cli is ignored
 
 
 [dependencies]
