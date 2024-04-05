@@ -2,6 +2,7 @@ use arg_parser::*;
 use clap::Parser;
 
 mod arg_parser;
+mod constants;
 mod wrapper;
 
 fn main() {

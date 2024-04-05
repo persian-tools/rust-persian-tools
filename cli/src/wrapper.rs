@@ -1,5 +1,6 @@
 use std::str::FromStr;
 
+use crate::constants::*;
 use crate::Args;
 use rust_persian_tools::*;
 
@@ -32,7 +33,7 @@ pub fn to_arabic(s: &str, _: &Args) -> String {
 pub fn get_bill_type(s: &str, args: &Args) -> String {
     match bill::Bill::from_str(s) {
         Ok(x) => format!("{:?}", x.get_bill_type()), // make a way to different error from ok
-        Err(_) => "invalid".to_string(),
+        Err(_) => INVALID.to_string(),
     }
 }
 
@@ -61,12 +62,12 @@ pub fn extract_card_number(s: &str, args: &Args) -> String {
         .iter()
         .map(|x| x.get_base())
         .collect::<Vec<&str>>()
-        .join(",")
+        .join(SEPARATOR)
 }
 // --- not-found | <capital>
 pub fn find_capital_by_province(s: &str, args: &Args) -> String {
     find_capital_by_province::find_capital_by_province(s)
-        .unwrap_or("not-found")
+        .unwrap_or(NOT_FOUND)
         .to_string()
 }
 // --- not-found
@@ -77,7 +78,7 @@ pub fn get_bank_name_by_card_number(s: &str, args: &Args) -> String {
         Ok(x) => x.to_string(),
         Err(e) => match e {
             get_bank_name_by_card_number::BankNameByCardNumberError::NotFound(_) => {
-                "not-found".to_string()
+                NOT_FOUND.to_string()
             }
             get_bank_name_by_card_number::BankNameByCardNumberError::TooShort(_, _) => {
                 "err: too short".to_string()
@@ -89,13 +90,13 @@ pub fn get_bank_name_by_card_number(s: &str, args: &Args) -> String {
 pub fn get_city_by_iran_national_id(s: &str, args: &Args) -> String {
     match get_place_by_iran_national_id::get_place_by_iran_national_id(s) {
         Ok(x) => x.get_city().to_string(),
-        Err(_) => "err".to_string(),
+        Err(_) => ERROR.to_string(),
     }
 }
 pub fn get_province_by_iran_national_id(s: &str, args: &Args) -> String {
     match get_place_by_iran_national_id::get_place_by_iran_national_id(s) {
         Ok(x) => x.get_province().to_string(),
-        Err(_) => "err".to_string(),
+        Err(_) => ERROR.to_string(),
     }
 }
 
@@ -123,7 +124,7 @@ pub fn get_plate_info(s: &str, args: &Args) -> String {
 }
 // ---
 pub fn number_to_words(s: &str, args: &Args) -> String {
-    number_to_words::number_to_words_str(s).unwrap_or("err".to_string())
+    number_to_words::number_to_words_str(s).unwrap_or(ERROR.to_string())
 }
 // ---
 pub fn has_persian(s: &str, args: &Args) -> String {
@@ -141,19 +142,19 @@ pub fn is_phone_valid(s: &str, args: &Args) -> String {
 }
 pub fn get_operator_prefix(s: &str, args: &Args) -> String {
     phone_number::get_operator_prefix(s)
-        .unwrap_or("invalid")
+        .unwrap_or(INVALID)
         .to_string()
 }
 pub fn get_phone_operator(s: &str, args: &Args) -> String {
     match phone_number::operators::get_phone_details(s) {
         Ok(x) => format!("{:?}", x.operator()),
-        Err(_) => "invalid".to_string(),
+        Err(_) => INVALID.to_string(),
     }
 }
 pub fn get_phone_province(s: &str, args: &Args) -> String {
     match phone_number::operators::get_phone_details(s) {
         Ok(x) => format!("{:?}", x.base()),
-        Err(_) => "invalid".to_string(),
+        Err(_) => INVALID.to_string(),
     }
 }
 // ---
@@ -163,13 +164,13 @@ pub fn is_sheba_valid(s: &str, args: &Args) -> String {
 pub fn sheba_to_bank_name(s: &str, args: &Args) -> String {
     match sheba::get_sheba_info(s) {
         Ok(x) => x.get_name().to_string(),
-        Err(e) => "invalid".to_string(),
+        Err(e) => INVALID.to_string(),
     }
 }
 pub fn sheba_to_persian_bank_name(s: &str, args: &Args) -> String {
     match sheba::get_sheba_info(s) {
         Ok(x) => x.get_persian_name().to_string(),
-        Err(e) => "invalid".to_string(),
+        Err(e) => INVALID.to_string(),
     }
 }
 // ---
@@ -179,7 +180,7 @@ pub fn time_diff(s: &str, args: &Args) -> String {
 // --
 pub fn url_fix(s: &str, args: &Args) -> String {
     // todo accept separator
-    url_fix::url_fix(s, None).unwrap_or("err".to_string())
+    url_fix::url_fix(s, None).unwrap_or(ERROR.to_string())
 }
 // --
 pub fn verify_card_number(s: &str, args: &Args) -> String {
@@ -193,5 +194,5 @@ pub fn number_to_words_str(s: &str, args: &Args) -> String {
         s,
         &rust_persian_tools::words_to_number::Options::default(),
     )
-    .unwrap_or("err".to_string())
+    .unwrap_or(ERROR.to_string())
 }
