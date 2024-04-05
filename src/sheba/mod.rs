@@ -6,6 +6,7 @@ use self::{
 pub mod bank_info;
 mod chacksum;
 pub mod errors;
+pub use errors::ShebaValidationError;
 
 type E = errors::ShebaValidationError;
 

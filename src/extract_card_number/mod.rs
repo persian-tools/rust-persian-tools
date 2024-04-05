@@ -1,5 +1,5 @@
 pub mod extracted_card_number;
-use extracted_card_number::ExtractedCardNumber;
+pub use extracted_card_number::ExtractedCardNumber;
 
 /// This function gets a string as input and extract iran standard bank card numbers.
 /// persian chars for numbers are allowed "۱۲۳۴۵۶۷۸۹"

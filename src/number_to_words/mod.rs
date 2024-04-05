@@ -1,4 +1,4 @@
-mod error;
+pub mod error;
 mod get_word;
 mod three_digits;
 
@@ -9,7 +9,7 @@ use std::num::IntErrorKind;
 
 use crate::commas::remove_commas::remove_commas;
 
-use self::error::NumberToWordsError;
+pub use self::error::NumberToWordsError;
 
 /// Convert integer number to persian words.\
 /// If you want to pass string as input see: [number_to_words_str]

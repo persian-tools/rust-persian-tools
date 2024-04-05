@@ -2,7 +2,7 @@ pub mod errors;
 
 use std::borrow::Cow;
 
-use errors::VerifyLegalIdError;
+pub use errors::VerifyLegalIdError;
 
 type E = VerifyLegalIdError;
 

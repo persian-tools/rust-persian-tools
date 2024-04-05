@@ -1,5 +1,5 @@
 pub mod errors;
-use errors::VerifyCardNumberError;
+pub use errors::VerifyCardNumberError;
 
 ///  bank card number validation
 /// Example:
