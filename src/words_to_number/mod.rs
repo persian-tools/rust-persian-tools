@@ -1,5 +1,5 @@
 mod constants;
-mod errors;
+pub mod errors;
 
 use crate::{
     commas::add_commas::add_commas_mut,
@@ -7,10 +7,8 @@ use crate::{
     remove_ordinal_suffix::remove_ordinal_suffix,
 };
 
-use self::{
-    constants::{get_magnitute_number, get_unit_number, NEGATIVE_PREFIX},
-    errors::WordsToNumberError,
-};
+use self::constants::{get_magnitute_number, get_unit_number, NEGATIVE_PREFIX};
+pub use self::errors::WordsToNumberError;
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone, Copy, Hash)]

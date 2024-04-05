@@ -1,8 +1,8 @@
 mod bank_codes;
-mod errors;
+pub mod errors;
+pub use errors::BankNameByCardNumberError;
 
 use bank_codes::get_bank_code;
-use errors::BankNameByCardNumberError;
 
 /// gets card number as input and detects bank name.\
 /// 6037701689095443 -> "بانک کشاورزی"
