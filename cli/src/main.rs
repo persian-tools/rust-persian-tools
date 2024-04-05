@@ -2,24 +2,24 @@ use arg_parser::*;
 use clap::Parser;
 
 mod arg_parser;
-mod wraper;
+mod wrapper;
 
 fn main() {
     let args = Args::parse();
 
     match args.function {
         Function::AddCommas => {
-            handle(&args, wraper::commas::add_commas);
+            handle(&args, wrapper::add_commas);
         }
         Function::RemoveCommas => {
-            handle(&args, wraper::commas::remove_commas);
+            handle(&args, wrapper::remove_commas);
         }
     }
 }
 
-fn handle(args: &Args, exe: fn(&str) -> String) {
+fn handle(args: &Args, exe: fn(&str, &Args) -> String) {
     if let Some(x) = &args.input {
-        println!("{}", exe(x));
+        println!("{}", exe(x, &args));
     } else {
         let mut buffer = String::new();
         loop {
@@ -31,7 +31,7 @@ fn handle(args: &Args, exe: fn(&str) -> String) {
             if buffer.is_empty() {
                 break;
             }
-            println!("{}", exe(&buffer));
+            println!("{}", exe(&buffer, &args));
         }
     }
 }
