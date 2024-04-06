@@ -114,13 +114,13 @@ pub fn verify_iranian_national_id(code: impl AsRef<str>) -> Result<(), NationalI
 
     let code_str = &("00".to_owned() + code_str)[length + 2 - 10..];
 
-    // this unrwap is safe because if the code_str length is not in the 8..=10 range , it would return  NationalIdError::Length
+    // this unwrap is safe because if the code_str length is not in the 8..=10 range , it would return  NationalIdError::Length
     if code_str[3..9].parse::<u64>().unwrap() == 0 {
         return Err(NationalIdError::Invalid);
     }
 
     let mut sum = (0usize..9).fold(0, |sum, i| {
-        // this unrwap is safe because if the code_str length is not in the 8..=10 range , it would return  NationalIdError::Length
+        // this unwrap is safe because if the code_str length is not in the 8..=10 range , it would return  NationalIdError::Length
         sum + code_str[i..i + 1].parse::<usize>().unwrap() * (10 - i)
     });
 

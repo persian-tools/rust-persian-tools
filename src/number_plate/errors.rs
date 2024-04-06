@@ -5,9 +5,9 @@ use thiserror::Error;
 pub enum PlateNumberError {
     #[error("plate numbers must be 7 or 8 digits long")]
     InvalidPlateDigitLength,
-    #[error("invalid plate charchter length (7 for motorcucles, 8 for cars)")]
+    #[error("invalid plate char length (7 for motorcycles, 8 for cars)")]
     InvalidPlateCharacterLength,
-    #[error("invalid plate charchter {0:?}")]
+    #[error("invalid plate char {0:?}")]
     InvalidPlateCharacter(String),
     #[error("invalid motorcycle province code {0:?}")]
     MotorcycleProvinceNotFound(String),

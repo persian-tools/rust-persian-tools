@@ -45,7 +45,7 @@ pub(super) fn get_unit_number(unit: &str) -> Option<i64> {
     })
 }
 
-pub(super) fn get_magnitute_number(unit: &str) -> Option<i64> {
+pub(super) fn get_magnitude_number(unit: &str) -> Option<i64> {
     Some(match unit {
         "هزار" => 1000,
         "میلیون" => 1000000,

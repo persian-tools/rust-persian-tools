@@ -146,7 +146,7 @@ impl TimeDiff {
 /// Converts a valid datetime to timestamp
 ///
 /// # Warning
-/// This function is desgined to only works for these date time formats :
+/// This function is designed to only works for these date time formats :
 ///
 ///
 /// - `%Y-%m-%d %H:%M:%S`: Sortable format
@@ -176,7 +176,7 @@ pub fn convert_to_timestamp(datetime: impl AsRef<str>) -> Result<i64, TimeAgoErr
 /// Converts datetime to Chrono `DateTime<Local>`
 ///
 /// # Warning
-/// This function is desgined to only works for these date time formats :
+/// This function is designed to only works for these date time formats :
 ///
 /// - `%Y-%m-%d %H:%M:%S`: Sortable format
 /// - `%Y/%m/%d %H:%M:%S`: Sortable format
@@ -231,20 +231,20 @@ pub fn get_current_timestamp() -> i64 {
 }
 
 /// datetime argument can be a integer as timestamp or a string as datetime
-/// Returns a [TimeDiff] stuct based on how much time is remaining or passed based on the givin datetime\
-/// The [TimeDiff] stuct has two methods , `short_form()` & `long_form()` \
+/// Returns a [TimeDiff] struct based on how much time is remaining or passed based on the givin datetime\
+/// The [TimeDiff] struct has two methods , `short_form()` & `long_form()` \
 ///
-/// the `short_form()` returns a short desciption about time diffrence\
+/// the `short_form()` returns a short description about time difference\
 /// - 5 دقیقه قبل
 /// - حدود 2 هفته بعد
 ///
-/// the `long_form()` returns a long and exact desciption about time diffrence\
+/// the `long_form()` returns a long and exact description about time difference\
 /// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
 ///
-/// also there are some other methords like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
+/// also there are some other methods like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
 ///
 /// # Warning
-/// This function is desgined to only works for these date time formats if you send datetime argument as datetime string :
+/// This function is designed to only works for these date time formats if you send datetime argument as datetime string :
 ///
 /// - `%Y-%m-%d %H:%M:%S`: Sortable format
 /// - `%Y/%m/%d %H:%M:%S`: Sortable format
@@ -299,19 +299,19 @@ pub fn time_diff_now(datetime: impl Into<Timestamp>) -> Result<TimeDiff, TimeAgo
 }
 
 /// start & end arguments can be a integer as timestamp or a string as datetime
-/// Returns a [TimeDiff] stuct based on how much time is remaining or passed based on the diffrence between two datetime\
-/// The [TimeDiff] stuct has two main methods , `short_form()` & `long_form()` \
-/// the `short_form()` returns a short desciption about time diffrence\
+/// Returns a [TimeDiff] struct based on how much time is remaining or passed based on the diffrence between two datetime\
+/// The [TimeDiff] struct has two main methods , `short_form()` & `long_form()` \
+/// the `short_form()` returns a short description about time difference\
 /// - 5 دقیقه قبل
 /// - حدود 2 هفته بعد
 ///
-/// the `long_form()` returns a long and exact desciption about time diffrence\
+/// the `long_form()` returns a long and exact description about time difference\
 /// - 6 سال و 6 ماه و 10 روز و 12 دقیقه و 37 ثانیه بعد
 ///
-/// also there are some other methords like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
+/// also there are some other methods like `short_form_fa_digits()` or `short_form_ar_digits()` that is the same as `short_form()` but with farsi or arabic digits
 ///
 /// # Warning
-/// This function is desgined to only works for these datetime formats if you send start or end as datetime string:
+/// This function is designed to only works for these datetime formats if you send start or end as datetime string:
 ///
 /// - `%Y-%m-%d %H:%M:%S`: Sortable format
 /// - `%Y/%m/%d %H:%M:%S`: Sortable format
