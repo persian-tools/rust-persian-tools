@@ -262,10 +262,10 @@ pub fn get_current_timestamp() -> i64 {
 ///
 /// let current_time = Local::now();
 /// let due_date = current_time
-/// + Duration::weeks(320)
-/// + Duration::hours(7)
-/// + Duration::minutes(13)
-/// + Duration::seconds(37);
+/// + Duration::try_weeks(320).unwrap()
+/// + Duration::try_hours(7).unwrap()
+/// + Duration::try_minutes(13).unwrap()
+/// + Duration::try_seconds(37).unwrap();
 /// let formatted_time = due_date.format("%Y-%m-%d %H:%M:%S").to_string();
 /// assert_eq!(
 /// time_diff_now(formatted_time).unwrap(),
@@ -282,7 +282,7 @@ pub fn get_current_timestamp() -> i64 {
 ///
 /// // Example with short_form()
 /// let current_time = Local::now();
-/// let ten_minutes_ago = current_time - Duration::minutes(10);
+/// let ten_minutes_ago = current_time - Duration::try_minutes(10).unwrap();
 /// let formatted_time = ten_minutes_ago.format("%Y-%m-%d %H:%M:%S").to_string(); // create datetime string from 10 minutes ago
 /// assert!(time_diff_now(formatted_time).is_ok_and(|datetime| datetime.short_form() == "10 دقیقه قبل"));
 /// ```
@@ -329,11 +329,11 @@ pub fn time_diff_now(datetime: impl Into<Timestamp>) -> Result<TimeDiff, TimeAgo
 ///
 /// let current_time = Local::now();
 /// let start = current_time
-///     + Duration::weeks(320)
-///     + Duration::hours(7)
-///     + Duration::minutes(13)
-///     + Duration::seconds(37);
-/// let end = (current_time + Duration::weeks(150) + Duration::hours(4)).timestamp();
+///     + Duration::try_weeks(320).unwrap()
+///     + Duration::try_hours(7).unwrap()
+///     + Duration::try_minutes(13).unwrap()
+///     + Duration::try_seconds(37).unwrap();
+/// let end = (current_time + Duration::try_weeks(150).unwrap() + Duration::try_hours(4).unwrap()).timestamp();
 /// let formatted_time = start.format("%Y-%m-%d %H:%M:%S").to_string();
 /// assert_eq!(
 ///     time_diff_between(formatted_time, end).unwrap(),
