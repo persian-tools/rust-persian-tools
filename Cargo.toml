@@ -1,6 +1,6 @@
 [package]
 name = "rust-persian-tools"
-version = "1.1.1"
+version = "1.1.2"
 edition = "2021"
 description = "Official Rust implementation of Persian Tools"
 license = "MIT"
