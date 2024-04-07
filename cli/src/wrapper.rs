@@ -71,8 +71,6 @@ pub fn find_capital_by_province(s: &str, args: &Args) -> String {
         .to_string()
 }
 // --- not-found
-// todo check every output type that is not publicly available
-// todo check typo errors in library
 pub fn get_bank_name_by_card_number(s: &str, args: &Args) -> String {
     match get_bank_name_by_card_number::get_bank_name_by_card_number(s) {
         Ok(x) => x.to_string(),
@@ -119,8 +117,31 @@ pub fn verify_iranian_national_id(s: &str, args: &Args) -> String {
         .to_string()
 }
 // ---
-pub fn get_plate_info(s: &str, args: &Args) -> String {
-    todo!()
+pub fn get_plate_type(s: &str, args: &Args) -> String {
+    match rust_persian_tools::number_plate::get_plate_info(s) {
+        Ok(plate) => {
+            format!("{:?}", plate.plate_type)
+        }
+        Err(e) => ERROR.to_string(),
+    }
+}
+pub fn get_plate_province(s: &str, args: &Args) -> String {
+    match rust_persian_tools::number_plate::get_plate_info(s) {
+        Ok(plate) => plate.province,
+        Err(e) => ERROR.to_string(),
+    }
+}
+pub fn get_plate_category(s: &str, args: &Args) -> String {
+    match rust_persian_tools::number_plate::get_plate_info(s) {
+        Ok(plate) => {
+            if let Some(category) = plate.category {
+                category
+            } else {
+                NOT_FOUND.to_string()
+            }
+        }
+        Err(e) => ERROR.to_string(),
+    }
 }
 // ---
 pub fn number_to_words(s: &str, args: &Args) -> String {
@@ -128,13 +149,13 @@ pub fn number_to_words(s: &str, args: &Args) -> String {
 }
 // ---
 pub fn has_persian(s: &str, args: &Args) -> String {
-    persian_chars::has_persian(s, false).to_string() // todo read from args
+    persian_chars::has_persian(s, false).to_string()
 }
 pub fn is_persian(s: &str, args: &Args) -> String {
-    persian_chars::is_persian(s, false).to_string() // todo read from args
+    persian_chars::is_persian(s, false).to_string()
 }
 pub fn to_persian_chars(s: &str, args: &Args) -> String {
-    persian_chars::to_persian_chars(s) // todo read from args
+    persian_chars::to_persian_chars(s)
 }
 // ---
 pub fn is_phone_valid(s: &str, args: &Args) -> String {
@@ -175,11 +196,13 @@ pub fn sheba_to_persian_bank_name(s: &str, args: &Args) -> String {
 }
 // ---
 pub fn time_diff(s: &str, args: &Args) -> String {
-    todo!()
+    match rust_persian_tools::time_diff::time_diff_now(s) {
+        Ok(timeDiff) => timeDiff.long_form(),
+        Err(e) => ERROR.to_string(),
+    }
 }
 // --
 pub fn url_fix(s: &str, args: &Args) -> String {
-    // todo accept separator
     url_fix::url_fix(s, None).unwrap_or(ERROR.to_string())
 }
 // --
