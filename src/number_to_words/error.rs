@@ -3,18 +3,18 @@ use thiserror::Error;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Clone, Debug, Hash, PartialEq, Eq)]
 pub enum NumberToWordsError {
-    #[error("number_to_words_str input is empty")]
+    #[error("The input is empty.")]
     EmptyString,
 
-    #[error("number_to_words_str invalid integer -> \"{0}\"")]
+    #[error("There is an invalid integer in the input: \"{0}\"")]
     InvalidInteger(String),
 
-    #[error("number_to_words_str integer overflow -> \"{0}\"")]
+    #[error("Overflow occurred while processing the integer: \"{0}\"")]
     Overflow(String),
 
-    #[error("number_to_words_str unknown -> \"{0}\"")]
+    #[error("Unknown error occurred: \"{0}\"")]
     Unknown(String),
 
-    #[error("number_to_words_str you should not see this error, please make an issue on github")]
+    #[error("You should not see this! Please create an issue on our GitHub repository.")]
     Internal,
 }

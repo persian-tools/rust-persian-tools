@@ -5,13 +5,13 @@ use thiserror::Error;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Debug, PartialEq, Eq)]
 pub enum VerifyCardNumberError {
-    #[error("invalid digit")]
+    #[error("There is an invalid digit in the input.")]
     InvalidDigit,
 
-    #[error("invalid length")]
+    #[error("Input length is invalid.")]
     InvalidLength,
 
-    #[error("invalid length")]
+    #[error("Input format is not a valid card number.")]
     InvalidCardNumber,
 }
 

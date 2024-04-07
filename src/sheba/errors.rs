@@ -5,25 +5,25 @@ use thiserror::Error;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Clone, Copy, Debug, Hash, PartialEq, Eq)]
 pub enum ShebaValidationError {
-    #[error("empty")]
+    #[error("The input is empty.")]
     Empty,
 
-    #[error("not started with IR")]
+    #[error("The input does not start with 'IR'.")]
     NotStartedWithIR,
 
-    #[error("invalid digit")]
+    #[error("There is an invalid digit in the input.")]
     InvalidDigit,
 
-    #[error("invalid length: {0:?}")]
+    #[error("Input length is invalid: {0:?}")]
     InvalidLength(usize),
 
-    #[error("invalid checksum")]
+    #[error("Input checksum is invalid.")]
     InvalidChecksum,
 
-    #[error("bank not found")]
+    #[error("Bank information not found.")]
     BankNotFound,
 
-    #[error("you should not see this! please make a issue on our github")]
+    #[error("You should not see this! Please create an issue on our GitHub repository.")]
     InternalError,
 }
 
