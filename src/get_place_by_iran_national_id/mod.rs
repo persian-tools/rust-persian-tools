@@ -1,11 +1,9 @@
-mod errors;
-mod place_by_iran_national_id;
+pub mod errors;
+pub mod place_by_iran_national_id;
 mod places;
 
-use self::{
-    errors::PlaceByNationalIdError, place_by_iran_national_id::PlaceByNationalId,
-    places::code_to_city,
-};
+use places::code_to_city;
+pub use {errors::PlaceByNationalIdError, place_by_iran_national_id::PlaceByNationalId};
 
 /// 0499370899 -> تهران-شهرری
 /// # Example:

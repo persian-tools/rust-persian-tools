@@ -1,8 +1,8 @@
 mod bank_codes;
-mod errors;
+pub mod errors;
+pub use errors::BankNameByCardNumberError;
 
 use bank_codes::get_bank_code;
-use errors::BankNameByCardNumberError;
 
 /// gets card number as input and detects bank name.\
 /// 6037701689095443 -> "بانک کشاورزی"
@@ -21,7 +21,7 @@ pub fn get_bank_name_by_card_number(
     let digits = digits.as_ref();
 
     if digits.len() >= 6 {
-        // slicing "&digits[0..6]" is safe because we are cheking length
+        // slicing "&digits[0..6]" is safe because we are checking length
         if let Some(x) = get_bank_code(&digits[0..6]) {
             Ok(x)
         } else {
