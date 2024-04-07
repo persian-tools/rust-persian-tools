@@ -12,7 +12,7 @@ pub use errors::VerifyCardNumberError;
 ///    Err(VerifyCardNumberError::InvalidLength)
 /// );
 /// ```
-/// safty: sum max posible value is 144 which is smaller than u8:MAX = 2^8 = 255
+/// safety: sum max possible value is 144 which is smaller than u8:MAX = 2^8 = 255
 pub fn verify_card_number(digits: impl AsRef<str>) -> Result<(), VerifyCardNumberError> {
     let digits = digits.as_ref();
 
@@ -68,7 +68,7 @@ mod add_ordinal_suffix_tests {
             Err(VerifyCardNumberError::InvalidDigit)
         );
         assert_eq!(
-            verify_card_number("6219861034529008"), // sumcheck
+            verify_card_number("6219861034529008"), // checksum
             Err(VerifyCardNumberError::InvalidCardNumber)
         );
     }

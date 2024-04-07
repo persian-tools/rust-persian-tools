@@ -13,8 +13,8 @@ pub fn get_plate_info(plate: impl AsRef<str>) -> Result<Plate, PlateNumberError>
 
     let (numbers, char): (String, String) = plate.chars().partition(|c| c.is_numeric());
 
-    // if its a car plate and it has no charachter
-    // if its a motocyle plate and it has charachters
+    // if its a car plate and it has no character
+    // if its a motorcycle plate and it has characters
     if (numbers.len() == 7 && char.len() != 1) && (numbers.len() == 8 && !char.is_empty()) {
         return Err(PlateNumberError::InvalidPlateCharacterLength);
     }
@@ -152,7 +152,7 @@ mod tests {
     }
 
     #[test]
-    fn should_return_invalid_for_false_car_charachter() {
+    fn should_return_invalid_for_false_car_character() {
         let plate_result = get_plate_info("1214547f");
         assert!(plate_result.is_err());
     }

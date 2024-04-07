@@ -7,7 +7,7 @@ use crate::{
     remove_ordinal_suffix::remove_ordinal_suffix,
 };
 
-use self::constants::{get_magnitute_number, get_unit_number, NEGATIVE_PREFIX};
+use self::constants::{get_magnitude_number, get_unit_number, NEGATIVE_PREFIX};
 pub use self::errors::WordsToNumberError;
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -36,17 +36,17 @@ impl Default for Options {
 
 fn calculate(tokens: Vec<String>) -> Result<i64, WordsToNumberError> {
     let mut sum = 0;
-    let mut is_negetive = false;
+    let mut is_negative = false;
 
     for token in tokens {
         if token == NEGATIVE_PREFIX {
-            // check negetive token
-            is_negetive = true;
+            // check negative token
+            is_negative = true;
         } else if let Some(value) = get_unit_number(&token) {
             // if token is a valid number
             sum += value;
-        } else if let Some(value) = get_magnitute_number(&token) {
-            // if token is a magnitute valid number
+        } else if let Some(value) = get_magnitude_number(&token) {
+            // if token is a magnitude valid number
             if sum == 0 {
                 sum = value;
             } else {
@@ -59,7 +59,7 @@ fn calculate(tokens: Vec<String>) -> Result<i64, WordsToNumberError> {
         }
     }
 
-    if is_negetive {
+    if is_negative {
         Ok(-sum)
     } else {
         Ok(sum)
@@ -104,7 +104,7 @@ pub fn words_to_number(words: impl AsRef<str>) -> Result<i64, WordsToNumberError
 
 /// returns a number as [String] if the givin input is a standard persian number text otherwise it would return a error
 ///
-/// first you need to create a [Options] struct , you may also use ```Options::defualt()```
+/// first you need to create a [Options] struct , you may also use ```Options::default()```
 ///
 /// ordinal suffix is supported for example "منفی سی اُم"
 ///

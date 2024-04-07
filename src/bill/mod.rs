@@ -48,7 +48,7 @@
 //! use rust_persian_tools::bill::BillType;
 //!
 //! let bill_id = BillID::new("77483178", "001", BillType::Tel).unwrap();
-//! let payment_id = PaymentID::new(17, 7, 1, &bill_id).unwrap();  // Thousands are ommited from amount
+//! let payment_id = PaymentID::new(17, 7, 1, &bill_id).unwrap();  // Thousands are omitted from amount
 //! let bill = Bill::new(bill_id, payment_id).unwrap();
 //! assert_eq!(bill.get_bill_type(), BillType::Tel);   // Fixed Landline
 //! assert_eq!(bill.get_bill_id(), "7748317800142");
@@ -81,7 +81,7 @@ pub enum BillError {
     InvalidBillIDYear,
     #[error("Bill Period is not parable")]
     InvalidBillIDPeriod,
-    #[error("Checksome doesnt match")]
+    #[error("Checksum doesn't match")]
     InvalidBillChecksum,
     #[error("Bill Type is not parsable")]
     InvalidBillType,
@@ -122,7 +122,7 @@ pub enum BillType {
     Tax = 7,
     /// جریمه راهنمایی و رانندگی  
     /// Service Type Code: 8
-    DrivingOffence = 8,
+    DrivingOffense = 8,
 }
 
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -203,7 +203,7 @@ impl BillID {
     }
 }
 impl ToString for BillID {
-    /// Returns String representaion of Bill ID
+    /// Returns String representation of Bill ID
     fn to_string(&self) -> String {
         format!(
             "{}{:03}{:1}{:1}",
@@ -285,7 +285,7 @@ impl std::str::FromStr for PaymentID {
 }
 
 impl ToString for PaymentID {
-    /// Returns String representaion of Bill ID
+    /// Returns String representation of Bill ID
     fn to_string(&self) -> String {
         format!(
             "{}{}{:02}{}{}",
@@ -328,7 +328,7 @@ impl PaymentID {
 }
 
 /// Container for Both Bill and Payment IDs  \
-/// You must use this type to extract all informations about the bill  
+/// You must use this type to extract all information about the bill  
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Bill {
@@ -341,7 +341,7 @@ impl std::str::FromStr for Bill {
     /// Loads Bill ID and Payment ID form barcode  \
     /// Barcode format is: \[Bill ID\]\[Payment ID\]  \
     /// Barcode Must be exactly 26 chars  \
-    /// This also checks validity of the relation between Bill and Patyment IDs (checksum2)
+    /// This also checks validity of the relation between Bill and Payment IDs (checksum2)
     fn from_str(barcode: &str) -> std::result::Result<Bill, BillError> {
         if barcode.len() != 26 {
             return Err(BillError::InvalidBarcodeLength);
@@ -546,7 +546,7 @@ mod tests {
         // The Bill ID from typescript version seems to be wrong
         // https://github.com/persian-tools/persian-tools/blob/f47fc0261aa5680cde6e03b87905a1273c91de92/test/bill.spec.ts#L36
         // Bill ID 9100074409151 is invalid! checksum must be 3 so valid Bill ID is 9100074409153
-        // So Correct Paymenet ID sould also be changed to 12908199 in turn
+        // So Correct Payment ID should also be changed to 12908199 in turn
         assert_eq!(
             Bill::new(
                 BillID::from_str("9100074409153").unwrap(),
@@ -596,7 +596,7 @@ mod tests {
         )
         .is_ok());
         // This test is supposed to test Payment ID so the Bill ID should be valid
-        // Bill id 2234322344613 from typescript vertsion
+        // Bill id 2234322344613 from typescript version
         // https://github.com/persian-tools/persian-tools/blob/f47fc0261aa5680cde6e03b87905a1273c91de92/test/bill.spec.ts#L79
         // is not valid, so it is changed to 2234322344617 to be valid so only Payment ID is checked
         assert!(Bill::new(

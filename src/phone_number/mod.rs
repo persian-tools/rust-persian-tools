@@ -44,7 +44,7 @@ pub fn is_phone_valid(phone_number: impl AsRef<str>) -> Result<(), PhoneNumberEr
 /// and `None` is returned if no valid prefix is found.
 ///
 /// # Warning
-/// This function is desgined to only works for Iran phone number prefixes ("+98", "98", "0098", "0")
+/// This function is designed to only works for Iran phone number prefixes ("+98", "98", "0098", "0")
 ///
 ///
 /// # Examples
@@ -92,8 +92,8 @@ pub fn phone_number_normalizer(
     is_phone_valid(phone_number)?;
 
     if let Ok(prefix) = get_phone_prefix(phone_number) {
-        let (_, splited) = phone_number.split_at(prefix.len());
-        return Ok(format!("{new_prefix}{splited}"));
+        let (_, splitted) = phone_number.split_at(prefix.len());
+        return Ok(format!("{new_prefix}{splitted}"));
     }
 
     Ok(format!("{new_prefix}{phone_number}"))
@@ -139,7 +139,7 @@ mod tests {
     }
 
     #[test]
-    fn test_phone_number_normilizer() {
+    fn test_phone_number_normalizer() {
         // normalize to 0
 
         assert_eq!(
@@ -189,7 +189,7 @@ mod tests {
     }
 
     #[test]
-    fn test_phone_number_normilizer_invalid_phone() {
+    fn test_phone_number_normalizer_invalid_phone() {
         assert!(phone_number_normalizer("09132222", "+98").is_err());
         assert!(phone_number_normalizer("9191282819921", "0").is_err());
     }

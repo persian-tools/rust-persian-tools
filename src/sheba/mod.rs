@@ -1,10 +1,10 @@
 use self::{
     bank_info::{get_bank_info, ShebaResult},
-    chacksum::sheba_iso7064_mod97,
+    checksum::sheba_iso7064_mod97,
 };
 
 pub mod bank_info;
-mod chacksum;
+mod checksum;
 pub mod errors;
 pub use errors::ShebaValidationError;
 
