@@ -35,6 +35,12 @@ pub fn get_bill_type(s: &str) -> String {
         Err(_) => INVALID.to_string(),
     }
 }
+pub fn get_bill_amount(s: &str) -> String {
+    match bill::Bill::from_str(s) {
+        Ok(x) => format!("{:?}", x.amount(bill::CurrencyType::Rials)), // make a way to different error from ok
+        Err(_) => INVALID.to_string(),
+    }
+}
 
 // ---
 pub fn fa_to_en(s: &str) -> String {

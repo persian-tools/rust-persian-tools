@@ -16,6 +16,7 @@ pub struct Args {
 #[derive(Debug, Subcommand)]
 pub enum Function {
     /// Adds commas to number,
+    ///
     /// example: 3100 -> 3,100
     AddCommas,
 
@@ -43,6 +44,9 @@ pub enum Function {
     /// Gets barcode as input and returns bill type
     /// types: (Water, Electricity, Gas, Tel, Mobile, Municipality, Tax, DrivingOffense)
     GetBillType,
+
+    /// Gets barcode as input and returns bill amount in Rials
+    GetBillAmount,
 
     /// "۵۴۱" -> "541"
     DigitsFaToEn,

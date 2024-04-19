@@ -17,6 +17,7 @@ fn main() {
         Function::IsArabic => handle(&args, wrapper::is_arabic),
         Function::ToArabic => handle(&args, wrapper::to_arabic),
         Function::GetBillType => handle(&args, wrapper::get_bill_type),
+        Function::GetBillAmount => handle(&args, wrapper::get_bill_amount),
         Function::DigitsFaToEn => handle(&args, wrapper::fa_to_en),
         Function::DigitsEnToFa => handle(&args, wrapper::en_to_fa),
         Function::DigitsEnToAr => handle(&args, wrapper::en_to_ar),
