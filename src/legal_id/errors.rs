@@ -3,18 +3,18 @@ use thiserror::Error;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Error, Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub enum VerifyLegalIdError {
-    #[error("invalid len legal id should be 11 chars")]
+    #[error("Invalid length. Legal ID should be exactly 11 characters.")]
     InvalidLength,
 
-    #[error("invalid digit")]
+    #[error("There is an invalid digit in the input.")]
     InvalidDigit,
 
-    #[error("invalid legal id")]
+    #[error("Legal ID is invalid.")]
     Invalid,
 
-    #[error("invalid legal id")]
+    #[error("Input checksum is invalid.")]
     InvalidChecksum,
 
-    #[error("you should not see this error. make a issue on our github please.")]
+    #[error("You should not see this! Please create an issue on our GitHub repository.")]
     InternalError,
 }
