@@ -8,9 +8,22 @@ readme = "README.md"
 # documentation = "https://docs.rs/rust-persian-tools" # if not set docs.rs will generate one and put it in place 
 homepage = "https://crates.io/crates/rust-persian-tools"
 repository = "https://github.com/persian-tools/rust-persian-tools"
-categories = ["localization", "languages", "internationalization", "tools"]
-keywords = ["iran", "persian", "farsi", "tools"]
-include = ["src/**/*.rs", "Cargo.toml", "LICENSE", "README.md", "Contributing.md", "logo.png"]
+categories = [
+    "localization",
+    "text-processing",
+    "internationalization",
+    "development-tools",
+    "rust-patterns",
+]
+keywords = ["iran", "persian", "farsi", "tools", "text-processing"]
+include = [
+    "src/**/*.rs",
+    "Cargo.toml",
+    "LICENSE",
+    "README.md",
+    "Contributing.md",
+    "logo.png",
+]
 
 
 [dependencies]
