@@ -8,6 +8,8 @@ Rust🦀 implementation of [Persian-Tools](https://github.com/persian-tools/pers
 
 Note: These tools are totally offline (no api calls)
 
+There is also a [CLI](https://github.com/ali77gh/PersianToolsCli) And a [WebApp](https://ali77gh.github.io/PersianToolsWeb/) powered by this library.
+
 ## Useful links
 
 1. Documentation: [docs.rs](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/)
@@ -16,7 +18,7 @@ Note: These tools are totally offline (no api calls)
 
 ## Table of features
 
-| name                          | docs     | description  | 
+| name                          | docs     | description  |
 |-------------------------------|----------|--------------|
 | add_ordinal_suffix            | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/add_ordinal_suffix/index.html) | پنج رو به پنجم تبدیل میکنه |
 | arabic_chars                  | [link](https://docs.rs/rust-persian-tools/1.0.0/rust_persian_tools/arabic_chars/index.html) | عربی بودن یک متن رو چک میکنه و میتونه بعضی حروف فارسی رو به فرم عربی تبدیل کنه|
